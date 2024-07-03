@@ -1,1 +1,3 @@
-npm test
+cd rss-react
+
+npm run lint
