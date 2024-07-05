@@ -28,11 +28,9 @@ interface BookInfo {
     offset: boolean;
   }
   
-  const apiKey = '9a1e3efb17626c41c96f0d55637ab401';
-  
   async function fetchData(searchText: string, perPage: number): Promise<BooksResponse> {
     const response = await fetch(
-      `https://openlibrary.org/search.json?q=harry%20potter&fields=*,availability&limit=10`
+      `https://openlibrary.org/search.json?q=${searchText}harry%20potter&fields=*,availability&limit=${perPage}`
     );
     const data = await response.json();
     return data;
