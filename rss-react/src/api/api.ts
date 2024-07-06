@@ -30,7 +30,7 @@ interface BookInfo {
   
   async function fetchData(searchText: string, perPage: number): Promise<BooksResponse> {
     const response = await fetch(
-      `https://openlibrary.org/search.json?q=${searchText}&fields=*,availability&limit=${perPage}`
+      `https://openlibrary.org/search.json?q=${searchText}&limit=${perPage}`
     );
     const data = await response.json();
     return data;

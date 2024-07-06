@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./SearchBar.scss";
 
+
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
@@ -16,6 +17,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.state = {
       searchTerm: localStorage.getItem("searchTerm") || "",
     };
+
   }
 
   componentWillUnmount() {
@@ -23,6 +25,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   }
 
   handleSearch = () => {
+    localStorage.setItem("searchTerm", this.state.searchTerm);
     this.props.onSearch(this.state.searchTerm);
   };
 
