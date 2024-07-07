@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./SearchBar.scss";
 import ErrorButton from "../ErrorButton/ErrorButton";
 
-
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
@@ -18,7 +17,6 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.state = {
       searchTerm: localStorage.getItem("searchTerm") || "",
     };
-
   }
 
   componentWillUnmount() {
@@ -36,15 +34,14 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
 
   render() {
     return (
-      <div>
+      <div className="search-bar">
         <input
           type="text"
           value={this.state.searchTerm}
           onChange={this.handleChange}
         />
         <button onClick={this.handleSearch}>Search</button>
-        <ErrorButton text={"Generate error"}/>
-        {/* <button onClick={() => {throw new Error('I crashed!');}}>Search</button> */}
+        <ErrorButton text={"Generate error"} />
       </div>
     );
   }

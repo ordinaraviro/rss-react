@@ -6,9 +6,8 @@ function App() {
   return (
     <>
       <ErorrBoundary>
-         <Main />
+        <Main />
       </ErorrBoundary>
-
     </>
   );
 }

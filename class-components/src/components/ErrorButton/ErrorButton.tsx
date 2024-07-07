@@ -1,5 +1,5 @@
-import React from 'react';
-import './ErrorButton.scss';
+import React from "react";
+import "./ErrorButton.scss";
 
 interface Props {
   text: string;
@@ -19,16 +19,18 @@ class ErrorButton extends React.Component<Props, State> {
   }
 
   handleClick() {
-    this.setState({generateError:true});
+    this.setState({ generateError: true });
   }
 
   render() {
-    if(this.state.generateError) {
-        throw new Error('I crashed!');
+    if (this.state.generateError) {
+      throw new Error("I crashed!");
     }
 
     return (
-        <button onClick={this.handleClick}>{this.props.text}</button>
+      <button className="error-btn" onClick={this.handleClick}>
+        {this.props.text}
+      </button>
     );
   }
 }
