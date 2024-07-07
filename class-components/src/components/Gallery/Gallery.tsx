@@ -52,8 +52,8 @@ class Gallery extends React.Component<Props, State> {
 
     return (
       <div className="gallery">
-        {books.map((book) => (
-          <div className="card" key={book.cover_edition_key}>
+        {books.map((book, index) => (
+          <div className="card" key={index}>
             { book.cover_edition_key ? 
             <img
               src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
@@ -65,7 +65,8 @@ class Gallery extends React.Component<Props, State> {
             <div className="card-body">
               <h5 className="card-title">{book.title}</h5>
               <p className="card-text">
-                <small className="text-muted">{book.author_name ? book.author_name[0] : 'Unknown'}</small>
+                {/* <small className="text-muted">{book.author_name ? book.author_name[0] : 'Unknown'}</small> */}
+                <small className="text-muted">{book.author_name[0]}</small>
               </p>
               {/* <p className="card-text">
                 <small className="text-muted">Views: {book.subject}</small>

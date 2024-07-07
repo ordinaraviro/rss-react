@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./SearchBar.scss";
+import ErrorButton from "../ErrorButton/ErrorButton";
 
 
 interface SearchBarProps {
@@ -42,6 +43,8 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
           onChange={this.handleChange}
         />
         <button onClick={this.handleSearch}>Search</button>
+        <ErrorButton text={"Generate error"}/>
+        {/* <button onClick={() => {throw new Error('I crashed!');}}>Search</button> */}
       </div>
     );
   }
