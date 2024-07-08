@@ -32,6 +32,7 @@ async function fetchData(
   searchText: string,
   perPage: number,
 ): Promise<BooksResponse> {
+  if(!searchText) searchText='publish_year%2024';
   const response = await fetch(
     `https://openlibrary.org/search.json?q=${searchText}&limit=${perPage}`,
   );
