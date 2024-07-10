@@ -1,13 +1,13 @@
 import "./App.css";
-import ErorrBoundary from "./components/ErrorBoundary/EroorBoundary";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Main from "./Pages/Main/Main";
 
 function App() {
   return (
     <>
-      <ErorrBoundary>
+      <ErrorBoundary>
         <Main />
-      </ErorrBoundary>
+      </ErrorBoundary>
     </>
   );
 }
