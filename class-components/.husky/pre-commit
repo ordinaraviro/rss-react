@@ -1,3 +1,3 @@
-cd rss-react
+cd class-components
 
 npm run lint
