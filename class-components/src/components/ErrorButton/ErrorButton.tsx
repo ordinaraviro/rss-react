@@ -1,38 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import "./ErrorButton.scss";
 
-interface Props {
-  text: string;
-}
+const ErrorButton = (errorText: string) => {
+  const [generateError, setGenerateError] = useState(false);
 
-interface State {
-  generateError: boolean;
-}
-
-class ErrorButton extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      generateError: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
+  const handleClick = () => {
+    setGenerateError(true);
   }
 
-  handleClick() {
-    this.setState({ generateError: true });
+  if (generateError) {
+    throw new Error("I crashed!");
   }
 
-  render() {
-    if (this.state.generateError) {
-      throw new Error("I crashed!");
-    }
-
-    return (
-      <button className="error-btn" onClick={this.handleClick}>
-        {this.props.text}
+  return(
+      <button className="error-btn" onClick={handleClick}>
+        {errorText}
       </button>
-    );
-  }
+  )
 }
 
 export default ErrorButton;
