@@ -1,22 +1,23 @@
 import { useState } from "react";
 import "./ErrorButton.scss";
 
-const ErrorButton = (errorText: string) => {
+const ErrorButton = ({ errorText }: { errorText: string }) => {
   const [generateError, setGenerateError] = useState(false);
 
   const handleClick = () => {
     setGenerateError(true);
-  }
+  };
 
   if (generateError) {
+    setGenerateError(false);
     throw new Error("I crashed!");
   }
 
-  return(
-      <button className="error-btn" onClick={handleClick}>
-        {errorText}
-      </button>
-  )
-}
+  return (
+    <button className="error-btn" onClick={handleClick}>
+      {errorText}
+    </button>
+  );
+};
 
 export default ErrorButton;

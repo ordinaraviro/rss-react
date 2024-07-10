@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./SearchBar.scss";
 import ErrorButton from "../ErrorButton/ErrorButton";
 
@@ -6,45 +6,27 @@ interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
 
-interface SearchBarState {
-  searchTerm: string;
-}
+const SearchBar = (props: SearchBarProps) => {
+  const [searchTerm, setSearchTerm] = useState(
+    localStorage.getItem("searchTerm") || "",
+  );
 
-class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  constructor(props: SearchBarProps) {
-    super(props);
-
-    this.state = {
-      searchTerm: localStorage.getItem("searchTerm") || "",
-    };
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem("searchTerm", this.state.searchTerm);
-  }
-
-  handleSearch = () => {
-    localStorage.setItem("searchTerm", this.state.searchTerm);
-    this.props.onSearch(this.state.searchTerm);
+  const handleSearch = () => {
+    localStorage.setItem("searchTerm", searchTerm);
+    props.onSearch(searchTerm);
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
-  render() {
-    return (
-      <div className="search-bar">
-        <input
-          type="text"
-          value={this.state.searchTerm}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleSearch}>Search</button>
-        <ErrorButton text={"Generate error"} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search-bar">
+      <input type="text" value={searchTerm} onChange={handleChange} />
+      <button onClick={handleSearch}>Search</button>
+      <ErrorButton errorText="Generate error" />
+    </div>
+  );
+};
 
 export default SearchBar;

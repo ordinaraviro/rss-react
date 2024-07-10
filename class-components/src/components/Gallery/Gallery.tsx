@@ -55,6 +55,6 @@ const Gallery = (props: Props) => {
       ))}
     </div>
   );
-}
+};
 
 export default Gallery;
