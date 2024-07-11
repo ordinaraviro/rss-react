@@ -9,7 +9,15 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/"
+          path={"/"}
+          element={
+            <ErrorBoundary>
+              <Main />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path={"/search"}
           element={
             <ErrorBoundary>
               <Main />

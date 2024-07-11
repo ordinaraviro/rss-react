@@ -2,7 +2,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import { useState } from "react";
 import Gallery from "../../components/Gallery/Gallery";
 
-const Main = () => {
+export default function Main() {
   const [searchTerm, setSearchTerm] = useState<string>(
     localStorage.getItem("searchTerm") || "",
   );
@@ -17,6 +17,4 @@ const Main = () => {
       <Gallery searchText={searchTerm} perPage={10} />
     </div>
   );
-};
-
-export default Main;
+}
