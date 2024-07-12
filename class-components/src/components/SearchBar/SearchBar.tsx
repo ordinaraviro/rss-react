@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SearchBar.scss";
-import ErrorButton from "../ErrorButton/ErrorButton";
+import ErrorButton from "../ErrorBoundary/ErrorButton";
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;

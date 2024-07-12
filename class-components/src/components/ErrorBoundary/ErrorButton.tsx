@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./ErrorButton.scss";
 
 const ErrorButton = ({ errorText }: { errorText: string }) => {
   const [generateError, setGenerateError] = useState(false);

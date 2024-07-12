@@ -1,4 +1,4 @@
-interface BookInfo {
+export interface BookInfo {
   author_key: string[];
   author_name: string[];
   cover_edition_key: string;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchData, BooksResponse } from "../../api/api";
+import { fetchData, BooksResponse, BookInfo } from "../../api/api";
 import "./Gallery.scss";
-import { useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
+import Card from "./Card";
 
 interface Props {
   searchText: string;
@@ -37,31 +38,16 @@ export default function Gallery(props: Props) {
 
   const books = data.docs;
 
+  function createCard(book: BookInfo, index: number) {
+    return <Card key={index} book={book} />;
+  }
+
   return (
     <>
       <PaginationBar />
-      <div className="gallery">
-        {books.map((book, index) => (
-          <div className="card" key={index}>
-            {book.cover_edition_key ? (
-              <img
-                src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
-                alt={book.title}
-              />
-            ) : (
-              <div className="no-img-title">{book.title}</div>
-            )}
-
-            <div className="card-body">
-              <h5 className="card-title">{book.title}</h5>
-              <p className="card-text">
-                <small className="text-muted">
-                  {book.author_name ? book.author_name[0] : "Unknown"}
-                </small>
-              </p>
-            </div>
-          </div>
-        ))}
+      <div className="callery-wrapper">
+        <div className="gallery">{books.map(createCard)}</div>
+        <Outlet />
       </div>
     </>
   );

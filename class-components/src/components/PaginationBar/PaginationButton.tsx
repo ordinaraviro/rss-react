@@ -17,7 +17,13 @@ export default function PaginationButton(props: IButton) {
         "page",
         (props.direction === "Next" ? curPage + 1 : curPage - 1).toString(),
       );
-      if(newSearchParams.get("page") === "0" ) newSearchParams.set("page", "1");
+      if (newSearchParams.get("page") === "0") newSearchParams.set("page", "1");
+      setSearchParams(newSearchParams);
+    }
+    if (!searchParams.get("page") && props.direction === "Next") {
+      const newSearchParams = new URLSearchParams(searchParams);
+      const curPage = "2";
+      newSearchParams.set("page", curPage);
       setSearchParams(newSearchParams);
     }
   };
