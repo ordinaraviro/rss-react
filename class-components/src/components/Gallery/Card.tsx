@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
 import { BookInfo } from "../../api/api";
 
 interface Props {
   book: BookInfo;
+  link: string;
 }
 
 export default function Card(props: Props) {
   return (
     <>
-      <div className="card">
+      <Link className="card" to={props.link}>
         {props.book.cover_edition_key ? (
           <img
             src={`https://covers.openlibrary.org/b/olid/${props.book.cover_edition_key}-M.jpg`}
@@ -25,7 +27,7 @@ export default function Card(props: Props) {
             </small>
           </p>
         </div>
-      </div>
+      </Link>
     </>
   );
 }

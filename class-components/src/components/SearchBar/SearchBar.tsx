@@ -6,7 +6,7 @@ interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
 
-const SearchBar = (props: SearchBarProps) => {
+export default function SearchBar(props: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem("searchTerm") || "",
   );
@@ -16,17 +16,15 @@ const SearchBar = (props: SearchBarProps) => {
     props.onSearch(searchTerm);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
   return (
     <div className="search-bar">
-      <input type="text" value={searchTerm} onChange={handleChange} />
+      <input type="text" value={searchTerm} onChange={handleInputChange} />
       <button onClick={handleSearch}>Search</button>
       <ErrorButton errorText="Generate error" />
     </div>
   );
-};
-
-export default SearchBar;
+}

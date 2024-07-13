@@ -3,7 +3,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Main from "./Pages/Main/Main";
 import { Routes, Route } from "react-router-dom";
 import Page404 from "./Pages/Page404/Page404";
-import CardDetails from "./components/Gallery/CardDeatails";
+import CardDetails from "./components/Gallery/CardDetails";
 
 export default function App() {
   return (
