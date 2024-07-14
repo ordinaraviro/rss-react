@@ -28,9 +28,6 @@ export default function PaginationButton(props: IButton) {
     }
   };
 
-  // const curPage = +searchParams.get("page")!;
-  // const target = (props.direction === "Next" ? curPage + 1 : curPage - 1).toString();
-
   return (
     <div
       className={props.btnClass + " pagination-bar-btn"}

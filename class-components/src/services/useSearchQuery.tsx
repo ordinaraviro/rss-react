@@ -1,24 +1,17 @@
-import { useState, useEffect, SetStateAction, Dispatch } from "react";
+import { useState, useEffect } from "react";
 
-export default function useSearchQuery(
-  key: string,
-): [string, Dispatch<SetStateAction<string>>] {
-  const [searchQuery, setSearchQuery] = useState<string>(
-    localStorage.getItem(key) || "",
-  );
-
-  useEffect(() => {
-    const storedQuery = localStorage.getItem(key);
-    if (storedQuery) {
-      setSearchQuery(storedQuery);
-    }
-  }, [key]);
+function useSearchQuery(key: string) {
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem(key) || "";
+  });
 
   useEffect(() => {
     return () => {
-      localStorage.setItem(key, searchQuery);
+      localStorage.setItem(key, searchTerm);
     };
-  }, [key, searchQuery]);
+  }, [searchTerm]);
 
-  return [searchQuery, setSearchQuery];
+  return [searchTerm, setSearchTerm];
 }
+
+export default useSearchQuery;
