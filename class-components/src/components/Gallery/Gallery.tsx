@@ -14,7 +14,7 @@ export default function Gallery(props: Props) {
   const location = useLocation();
   const [data, setData] = useState<BooksResponse | null>(null);
   const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") ? searchParams.get("page") : "1";
 
   useEffect(() => {
     setData(null);
@@ -45,7 +45,7 @@ export default function Gallery(props: Props) {
   function createCard(book: BookInfo, index: number) {
     return (
       <Card
-        link={`/details?page=${searchParams.get("page")}&bookId=${index}`}
+        link={`/details?page=${page}&bookId=${index}`}
         key={index}
         book={book}
       />
