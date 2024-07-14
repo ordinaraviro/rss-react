@@ -9,7 +9,7 @@ function useSearchQuery(key: string) {
     return () => {
       localStorage.setItem(key, searchTerm);
     };
-  }, [searchTerm]);
+  }, [searchTerm, key]);
 
   return [searchTerm, setSearchTerm];
 }
