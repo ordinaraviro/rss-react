@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchData, BooksResponse, BookInfo } from "../../api/api";
 import "./Gallery.scss";
-import { Link, Outlet, useSearchParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
 
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function Gallery(props: Props) {
+  const location = useLocation();
   const [data, setData] = useState<BooksResponse | null>(null);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page");
@@ -18,11 +19,7 @@ export default function Gallery(props: Props) {
   useEffect(() => {
     setData(null);
     const fetchDataAsync = async () => {
-      const result = await fetchData(
-        props.searchText,
-        props.perPage,
-        page,
-      );
+      const result = await fetchData(props.searchText, props.perPage, page);
       setData(result);
     };
 
@@ -55,6 +52,8 @@ export default function Gallery(props: Props) {
     );
   }
 
+  const newPath = location.pathname.replace("details", "");
+
   return (
     <>
       <PaginationBar />
@@ -66,7 +65,7 @@ export default function Gallery(props: Props) {
                 ? "gallery-shut-details"
                 : "gallery-shut-details gallery-shut-details_hide"
             }
-            to="/"
+            to={`${newPath}?page=${searchParams.get("page")}`}
             onClick={handleClick}
           ></Link>
           {books.map(createCard)}

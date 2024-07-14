@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchData, BooksResponse } from "../../api/api";
 import "./Gallery.scss";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 export default function CardDetails() {
+  const location = useLocation();
   const [data, setData] = useState<BooksResponse | null>(null);
   const [searchParams] = useSearchParams();
   const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
@@ -27,11 +28,15 @@ export default function CardDetails() {
   }
 
   const book = data.docs[parseInt(searchParams.get("bookId")!)];
+  const newPath = location.pathname.replace("details", "");
 
   return (
     <>
       <div className="card-detail">
-        <Link className="card-details-close-btn" to={"/?page=2"}>
+        <Link
+          className="card-details-close-btn"
+          to={`${newPath}?page=${searchParams.get("page")}`}
+        >
           Close details
         </Link>
         {book && book.cover_edition_key ? (
