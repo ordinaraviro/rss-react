@@ -22,7 +22,7 @@ describe("Gallery", () => {
       </BrowserRouter>,
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByText("Loading")).toBeInTheDocument();
   });
 
   it('"Nothing found" is displayed if no cards are present', async () => {

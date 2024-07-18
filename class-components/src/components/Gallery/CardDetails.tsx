@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchData, BooksResponse } from "../../api/api";
 import "./Gallery.scss";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Loader } from "../Loader/Loader";
 
 export default function CardDetails() {
   const location = useLocation();
@@ -20,7 +21,7 @@ export default function CardDetails() {
   }, [searchTerm, searchParams]);
 
   if (!data) {
-    return <div className="loading">Loading...</div>;
+    return <Loader />;
   }
 
   if (!data.numFound) {

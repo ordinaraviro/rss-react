@@ -30,7 +30,7 @@ describe("CardDetails", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByText("Loading")).toBeInTheDocument();
   });
 
   it("displays the detailed card data correctly", async () => {

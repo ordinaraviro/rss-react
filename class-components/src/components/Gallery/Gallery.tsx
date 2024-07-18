@@ -4,6 +4,7 @@ import "./Gallery.scss";
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
+import { Loader } from "../Loader/Loader";
 
 interface Props {
   searchText: string;
@@ -27,7 +28,7 @@ export default function Gallery(props: Props) {
   }, [props.searchText, props.perPage, page]);
 
   if (!data) {
-    return <div className="loading">Loading...</div>;
+    return <Loader />;
   }
 
   if (!data.numFound) {
