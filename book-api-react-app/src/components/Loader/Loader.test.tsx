@@ -3,10 +3,8 @@ import { describe, expect, it } from "vitest";
 import { Loader } from "./Loader";
 
 describe("Loading", () => {
-  it('Loading is displayed', async () => {
-    render(
-        <Loader />
-    );
+  it("Loading is displayed", async () => {
+    render(<Loader />);
 
     await waitFor(() =>
       expect(screen.getByText("Loading")).toBeInTheDocument(),
