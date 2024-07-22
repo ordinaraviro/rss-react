@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { fetchData, BooksResponse, BookInfo } from "../../api/api";
+import { BookInfo } from "../../api/api";
 import "./Gallery.scss";
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
 import { Loader } from "../Loader/Loader";
+import { booksApi } from "../../services/books";
 
 interface Props {
   searchText: string;
@@ -12,22 +12,17 @@ interface Props {
 }
 
 export default function Gallery(props: Props) {
+
   const location = useLocation();
-  const [data, setData] = useState<BooksResponse | null>(null);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
+  const { data, error, isLoading } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:props.searchText, page});
 
-  useEffect(() => {
-    setData(null);
-    const fetchDataAsync = async () => {
-      const result = await fetchData(props.searchText, props.perPage, page);
-      setData(result);
-    };
+  if (error) {
+    return <>There are some error: {error.status}</>;
+  }
 
-    fetchDataAsync();
-  }, [props.searchText, props.perPage, page]);
-
-  if (!data) {
+  if (isLoading) {
     return <Loader />;
   }
 
