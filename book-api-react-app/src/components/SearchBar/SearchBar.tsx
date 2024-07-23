@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import "./SearchBar.scss";
 import ErrorButton from "../ErrorBoundary/ErrorButton";
 import { useTheme } from "../ThemeContext/ThemeContext";
+import useSearchQuery from "../../services/useSearchQuery";
+import Button from "../Button/Button";
 
-interface SearchBarProps {
-  onSearch: (searchTerm: string) => void;
-}
-
-export default function SearchBar(props: SearchBarProps) {
-  const [searchTerm, setSearchTerm] = useState(
-    localStorage.getItem("searchTerm") || "",
-  );
+export default function SearchBar() {
+  const [searchTerm, setSearchTerm] = useSearchQuery("searchTerm");
+  // const [searchTerm, setSearchTerm] = useState(
+  //   localStorage.getItem("searchTerm") || "",
+  // );
   const { toggleTheme } = useTheme();
 
-  const handleSearch = () => {
-    localStorage.setItem("searchTerm", searchTerm);
-    props.onSearch(searchTerm);
-  };
+  // const handleSearch = () => {
+  //   localStorage.setItem("searchTerm", searchTerm);
+  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -25,9 +23,9 @@ export default function SearchBar(props: SearchBarProps) {
   return (
     <div className="search-bar">
       <input type="text" value={searchTerm} onChange={handleInputChange} />
-      <button onClick={handleSearch}>Search</button>
+      <Button handleClick={() => localStorage.setItem("searchTerm", searchTerm)}>Search</Button>
       <ErrorButton errorText="Generate error" />
-      <button onClick={toggleTheme}>Toggle theme</button>
+      <Button handleClick={toggleTheme}>Toggle theme</Button>
     </div>
   );
 }

@@ -6,12 +6,10 @@ function useSearchQuery(key: string) {
   });
 
   useEffect(() => {
-    return () => {
-      localStorage.setItem(key, searchTerm);
-    };
+    localStorage.setItem(key, searchTerm);
   }, [searchTerm, key]);
 
-  return [searchTerm, setSearchTerm];
+  return [searchTerm, setSearchTerm] as const;
 }
 
 export default useSearchQuery;

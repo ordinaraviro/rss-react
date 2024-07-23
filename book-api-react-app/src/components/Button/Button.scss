@@ -1,0 +1,19 @@
+.btn {
+    box-shadow: 0 3px 0 1px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #242424;
+    transition: 300ms;
+}
+.btn:hover {
+    background-color: #999;
+}
+.btn:active {
+    margin-top: 1px;
+    box-shadow: 0 0px 0 1px;
+}
+
+.btn-dark {
+    color: #ccc;
+    background-color: #242424;
+}

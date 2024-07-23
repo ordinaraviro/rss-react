@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BookInfo } from "../../api/api";
+import LinkButton from "../LinkButton/LinkButton";
 
 interface Props {
   book: BookInfo;
@@ -9,7 +10,8 @@ interface Props {
 export default function Card(props: Props) {
   return (
     <>
-      <Link className="card" to={props.link}>
+      <div className="card">
+        <LinkButton path={props.link}>Details</LinkButton>
         {props.book.cover_edition_key ? (
           <img
             src={`https://covers.openlibrary.org/b/olid/${props.book.cover_edition_key}-M.jpg`}
@@ -27,7 +29,7 @@ export default function Card(props: Props) {
             </small>
           </p>
         </div>
-      </Link>
+      </div>
     </>
   );
 }

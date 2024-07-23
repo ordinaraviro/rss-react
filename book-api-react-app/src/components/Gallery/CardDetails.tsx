@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
-import { fetchData, BooksResponse } from "../../api/api";
+import { fetchData, BooksResponse, BookInfo } from "../../api/api";
 import "./Gallery.scss";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
+import { booksApi } from "../../services/books";
 
 export default function CardDetails() {
   const location = useLocation();
-  const [data, setData] = useState<BooksResponse | null>(null);
   const [searchParams] = useSearchParams();
   const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
 
-  useEffect(() => {
-    setData(null);
-    const fetchDataAsync = async () => {
-      const result = await fetchData(searchTerm, 10, searchParams.get("page"));
-      setData(result);
-    };
+  const { data, error, isLoading, isFetching } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:searchTerm, page:searchParams.get("page")});
+  if (error) {
+    return <>There are some error: {error.message}</>;
+  }
 
-    fetchDataAsync();
-  }, [searchTerm, searchParams]);
-
-  if (!data) {
+  if (isFetching) {
     return <Loader />;
   }
 

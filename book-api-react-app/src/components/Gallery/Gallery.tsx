@@ -5,24 +5,21 @@ import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
 import { Loader } from "../Loader/Loader";
 import { booksApi } from "../../services/books";
+import useSearchQuery from "../../services/useSearchQuery";
 
-interface Props {
-  searchText: string;
-  perPage: number;
-}
-
-export default function Gallery(props: Props) {
+export default function Gallery() {
+  const [searchTerm] = useSearchQuery('searchTerm');
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
-  const { data, error, isLoading } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:props.searchText, page});
+  const { data, error, isLoading, isFetching } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:searchTerm, page});
 
   if (error) {
-    return <>There are some error: {error.status}</>;
+    return <>There are some error: {error.message}</>;
   }
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader />;
   }
 
