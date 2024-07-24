@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { BookInfo } from "../../api/api";
 import LinkButton from "../LinkButton/LinkButton";
+import { addItem, removeItem } from "../../redux/selectedItemsSlice";
+import { RootState } from "../../redux/store";
 
 interface Props {
   book: BookInfo;
@@ -8,6 +10,17 @@ interface Props {
 }
 
 export default function Card(props: Props) {
+  const dispatch = useDispatch();
+  const selectedItems = useSelector((state:RootState)=> state.selectedItems.items);
+
+  const handleCheckboxChange = (item:BookInfo, isChecked: boolean) => {
+    if (isChecked) {
+      dispatch(addItem(item));
+    } else {
+      dispatch(removeItem(item.key));
+    }
+  };
+
   return (
     <>
       <div className="card">
@@ -29,6 +42,11 @@ export default function Card(props: Props) {
             </small>
           </p>
         </div>
+        <label>
+          <input type="checkbox" 
+          checked={selectedItems.some(selectedItem => selectedItem.key === props.book.key)} 
+          onChange={(e) => handleCheckboxChange(props.book, e.target.checked)}/> Add book
+        </label>
       </div>
     </>
   );

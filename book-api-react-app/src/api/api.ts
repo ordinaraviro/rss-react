@@ -5,6 +5,7 @@ export interface BookInfo {
   first_publish_year: number;
   first_sentence: string[];
   title: string;
+  key: string;
 }
 
 interface BooksResponse {

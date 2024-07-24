@@ -5,18 +5,27 @@ import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
 import { Loader } from "../Loader/Loader";
 import { booksApi } from "../../services/books";
-import useSearchQuery from "../../services/useSearchQuery";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import Button from "../Button/Button";
 
 export default function Gallery() {
-  const [searchTerm] = useSearchQuery('searchTerm');
+  const selectedItems = useSelector((state:RootState)=> state.selectedItems.items);
+  const searchTerm = useSelector(
+    (state: RootState) => state.searchTerm.searchTerm,
+  );
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
-  const { data, error, isLoading, isFetching } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:searchTerm, page});
+  const { data, error, isFetching } =
+    booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({
+      searchText: searchTerm,
+      page,
+    });
 
   if (error) {
-    return <>There are some error: {error.message}</>;
+    return <div>There are some error: {error.message}</div>;
   }
 
   if (isFetching) {
@@ -65,6 +74,7 @@ export default function Gallery() {
         </div>
         <Outlet />
       </div>
+      <Button handleClick={()=>console.log({selectedItems})}>console items</Button>
     </>
   );
 }

@@ -1,30 +1,38 @@
 import React, { useState } from "react";
 import "./SearchBar.scss";
-import ErrorButton from "../ErrorBoundary/ErrorButton";
 import { useTheme } from "../ThemeContext/ThemeContext";
-import useSearchQuery from "../../services/useSearchQuery";
 import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../../redux/searchTermSlice";
 
 export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useSearchQuery("searchTerm");
-  // const [searchTerm, setSearchTerm] = useState(
-  //   localStorage.getItem("searchTerm") || "",
-  // );
   const { toggleTheme } = useTheme();
 
-  // const handleSearch = () => {
-  //   localStorage.setItem("searchTerm", searchTerm);
-  // };
+  const dispatch = useDispatch();
+
+  const handleChange = () => {
+    dispatch(setSearchTerm(localStorage.getItem("searchTerm") || ""));
+  };
+
+  const [inputValue, setInputValue] = useState(
+    localStorage.getItem("searchTerm") || "",
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setInputValue(event.target.value);
   };
 
   return (
     <div className="search-bar">
-      <input type="text" value={searchTerm} onChange={handleInputChange} />
-      <Button handleClick={() => localStorage.setItem("searchTerm", searchTerm)}>Search</Button>
-      <ErrorButton errorText="Generate error" />
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <Button
+        handleClick={() => {
+          localStorage.setItem("searchTerm", inputValue);
+          handleChange();
+        }}
+      >
+        Search
+      </Button>
       <Button handleClick={toggleTheme}>Toggle theme</Button>
     </div>
   );

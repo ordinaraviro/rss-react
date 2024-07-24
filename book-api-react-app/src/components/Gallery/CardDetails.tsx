@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { fetchData, BooksResponse, BookInfo } from "../../api/api";
+import { useState } from "react";
+import { BookInfo } from "../../api/api";
 import "./Gallery.scss";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
@@ -10,7 +10,11 @@ export default function CardDetails() {
   const [searchParams] = useSearchParams();
   const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
 
-  const { data, error, isLoading, isFetching } = booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({searchText:searchTerm, page:searchParams.get("page")});
+  const { data, error, isFetching } =
+    booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({
+      searchText: searchTerm,
+      page: searchParams.get("page"),
+    });
   if (error) {
     return <>There are some error: {error.message}</>;
   }
