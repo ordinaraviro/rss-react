@@ -7,10 +7,9 @@ import { Loader } from "../Loader/Loader";
 import { booksApi } from "../../services/books";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import Button from "../Button/Button";
+import SelectedItemsFlyout from "./SelectedItemsFlyout";
 
 export default function Gallery() {
-  const selectedItems = useSelector((state:RootState)=> state.selectedItems.items);
   const searchTerm = useSelector(
     (state: RootState) => state.searchTerm.searchTerm,
   );
@@ -74,7 +73,7 @@ export default function Gallery() {
         </div>
         <Outlet />
       </div>
-      <Button handleClick={()=>console.log({selectedItems})}>console items</Button>
+      <SelectedItemsFlyout/>
     </>
   );
 }
