@@ -17,14 +17,10 @@ export default function PaginationBar() {
 
   return (
     <div className="pagination-bar">
-      <Button
-        handleClick={() => updateSearchParams("Previous")}
-      >
+      <Button handleClick={() => updateSearchParams("Previous")}>
         &larr; Previous page
       </Button>
-      <Button
-        handleClick={() => updateSearchParams("Next")}
-      >
+      <Button handleClick={() => updateSearchParams("Next")}>
         Next page &rarr;
       </Button>
     </div>

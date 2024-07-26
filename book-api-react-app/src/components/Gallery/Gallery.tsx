@@ -17,11 +17,10 @@ export default function Gallery() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
-  const { data, error, isFetching } =
-    booksApi.useGetBooksBySearchTextQuery({
-      searchText: searchTerm,
-      page,
-    });
+  const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
+    searchText: searchTerm,
+    page,
+  });
 
   if (error) {
     return <div>There are some error</div>;

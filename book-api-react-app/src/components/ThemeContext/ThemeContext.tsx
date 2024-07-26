@@ -7,5 +7,6 @@ export interface ThemeContextProps {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
-
+export const ThemeContext = createContext<ThemeContextProps | undefined>(
+  undefined,
+);

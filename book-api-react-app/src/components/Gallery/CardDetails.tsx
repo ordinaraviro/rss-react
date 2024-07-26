@@ -12,7 +12,7 @@ export default function CardDetails() {
   const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
     searchText: searchTerm,
     page: searchParams.get("page"),
-  })
+  });
 
   if (error) {
     return <>There are some error: {error}</>;

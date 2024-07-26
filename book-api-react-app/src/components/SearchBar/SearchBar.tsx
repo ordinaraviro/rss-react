@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SearchBar.scss";
-import { useTheme } from "../ThemeContext/ThemeContext";
+import { useTheme } from "../ThemeContext/useTheme";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
 import { setSearchTerm } from "../../redux/searchTermSlice";

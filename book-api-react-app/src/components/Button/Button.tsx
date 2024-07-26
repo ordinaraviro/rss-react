@@ -1,4 +1,4 @@
-import { useTheme } from "../ThemeContext/ThemeContext";
+import { useTheme } from "../ThemeContext/useTheme";
 import "./Button.scss";
 import { ReactNode } from "react";
 

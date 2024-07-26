@@ -11,7 +11,6 @@ vi.mock("../../api/api", () => ({
 }));
 
 describe("CardDetails", () => {
-
   it("shows loading indicator while fetching data", async () => {
     render(
       <MemoryRouter initialEntries={["/details?page=1&bookId=0"]}>

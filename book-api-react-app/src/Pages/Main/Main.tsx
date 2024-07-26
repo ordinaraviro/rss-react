@@ -1,7 +1,7 @@
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Gallery from "../../components/Gallery/Gallery";
 import "./Main.scss";
-import { useTheme } from "../../components/ThemeContext/ThemeContext";
+import { useTheme } from "../../components/ThemeContext/useTheme";
 
 export default function Main() {
   const { theme } = useTheme();
