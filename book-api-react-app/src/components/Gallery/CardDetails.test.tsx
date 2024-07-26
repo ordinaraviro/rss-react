@@ -1,9 +1,8 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import CardDetails from "./CardDetails";
 import { describe, it, vi, expect } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { mockBook, mockData } from "../../tests/mockData";
-import { ThemeProvider } from "../ThemeContext/ThemeContext";
+import { ThemeProvider } from "../ThemeContext/ThemeProvider";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
 
@@ -12,14 +11,6 @@ vi.mock("../../api/api", () => ({
 }));
 
 describe("CardDetails", () => {
-  const mockBooksResponse = {
-    numFound: 1,
-    start: 0,
-    numFoundExact: true,
-    docs: [mockBook],
-    q: "test",
-    offset: false,
-  };
 
   it("shows loading indicator while fetching data", async () => {
     render(

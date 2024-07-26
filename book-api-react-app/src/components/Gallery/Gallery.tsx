@@ -1,4 +1,4 @@
-import { BookInfo } from "../../api/api";
+import { BookInfo } from "../../api/books";
 import "./Gallery.scss";
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
@@ -18,20 +18,20 @@ export default function Gallery() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
   const { data, error, isFetching } =
-    booksApi.endpoints.getBooksBySearchText.useQuery<BookInfo | any>({
+    booksApi.useGetBooksBySearchTextQuery({
       searchText: searchTerm,
       page,
     });
 
   if (error) {
-    return <div>There are some error: {error.message}</div>;
+    return <div>There are some error</div>;
   }
 
   if (isFetching) {
     return <Loader />;
   }
 
-  if (!data.numFound) {
+  if (!data || !data.numFound) {
     return <div className="loading">Nothing found</div>;
   }
 
