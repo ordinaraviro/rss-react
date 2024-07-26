@@ -17,19 +17,16 @@ export default function SelectedItemsFlyout() {
   const convertToCSV = (items: BookInfo[]) => {
     if (items.length === 0) return "";
 
-    // Extract headers from the keys of the first item
     const headers = Object.keys(items[0]);
 
-    // Create the header row
     const headerRow = headers.join(",") + "\n";
 
-    // Create data rows
     const dataRows = items
       .map((item) => {
         return headers
           .map((header) => {
             const value = item[header as keyof BookInfo];
-            // Check if the value is an array, and join it with commas
+
             if (Array.isArray(value)) {
               return `"${value.join(",")}"`;
             }

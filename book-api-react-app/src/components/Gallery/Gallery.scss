@@ -35,6 +35,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  label {
+    cursor: pointer;
+    transition: 200ms;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  label:hover {
+    background-color: #ccc;
+  }
 }
 
 .card-body {

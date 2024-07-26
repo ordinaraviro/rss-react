@@ -25,7 +25,7 @@ export default function Card(props: Props) {
 
   return (
     <>
-      <div className="card">
+      <div className='card'>
         <LinkButton path={props.link}>Details</LinkButton>
         {props.book.cover_edition_key ? (
           <img
