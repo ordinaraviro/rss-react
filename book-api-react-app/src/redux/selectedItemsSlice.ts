@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BookInfo } from "../api/api";
+import { BookInfo } from "../api/books";
 
 export interface SelectedItemsState {
-  items: BookInfo[]; // or any other type based on your selected items
+  items: BookInfo[];
 }
 
 const initialState: SelectedItemsState = {

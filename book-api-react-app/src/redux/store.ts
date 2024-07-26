@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { booksApi } from "../services/books";
+import { booksApi } from "../api/books";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import selectedItemsReducer from "./selectedItemsSlice";
 import searchTermReducer from "./searchTermSlice";

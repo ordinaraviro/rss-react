@@ -4,7 +4,7 @@ import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card";
 import { Loader } from "../Loader/Loader";
-import { booksApi } from "../../services/books";
+import { booksApi } from "../../api/books";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import SelectedItemsFlyout from "./SelectedItemsFlyout";
@@ -73,7 +73,7 @@ export default function Gallery() {
         </div>
         <Outlet />
       </div>
-      <SelectedItemsFlyout/>
+      <SelectedItemsFlyout />
     </>
   );
 }

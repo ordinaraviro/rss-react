@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Main from "./Pages/Main/Main";
 import { Routes, Route } from "react-router-dom";
