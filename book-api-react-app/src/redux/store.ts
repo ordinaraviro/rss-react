@@ -1,18 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { booksApi } from "../api/books";
-import { setupListeners } from "@reduxjs/toolkit/query";
+// import { setupListeners } from "@reduxjs/toolkit/query";
 import selectedItemsReducer from "./selectedItemsSlice";
 import searchTermReducer from "./searchTermSlice";
 
-export const store = configureStore({
-  reducer: {
-    [booksApi.reducerPath]: booksApi.reducer,
-    selectedItems: selectedItemsReducer,
-    searchTerm: searchTermReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(booksApi.middleware),
+const rootReducer = combineReducers({
+  [booksApi.reducerPath]: booksApi.reducer,
+  selectedItems: selectedItemsReducer,
+  searchTerm: searchTermReducer,
 });
 
-setupListeners(store.dispatch);
-export type RootState = ReturnType<typeof store.getState>;
+export function store(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(booksApi.middleware),
+  });
+}
+
+// setupListeners(store.dispatch);
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof configureStore>;

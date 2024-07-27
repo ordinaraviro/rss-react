@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { ThemeProvider } from "./ThemeProvider";
 import { useTheme } from "./useTheme";
 
-const TestComponent = () => {
+export const TestComponent = () => {
   const { theme, toggleTheme } = useTheme();
   return (
     <div>

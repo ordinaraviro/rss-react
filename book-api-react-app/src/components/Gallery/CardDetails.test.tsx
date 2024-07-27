@@ -14,7 +14,7 @@ describe("CardDetails", () => {
   it("shows loading indicator while fetching data", async () => {
     render(
       <MemoryRouter initialEntries={["/details?page=1&bookId=0"]}>
-        <Provider store={store}>
+        <Provider store={store()}>
           <ThemeProvider>
             <Routes>
               <Route path="/details" element={<CardDetails />} />
