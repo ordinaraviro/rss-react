@@ -7,7 +7,7 @@ import { Loader } from "../Loader/Loader";
 import { booksApi } from "../../api/books";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import SelectedItemsFlyout from "./SelectedItemsFlyout";
+import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";
 
 export default function Gallery() {
   const searchTerm = useSelector(
