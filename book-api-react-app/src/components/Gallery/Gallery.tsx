@@ -2,7 +2,7 @@ import { BookInfo } from "../../api/books";
 import "./Gallery.scss";
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
-import Card from "./Card";
+import Card from "./Card/Card";
 import { Loader } from "../Loader/Loader";
 import { booksApi } from "../../api/books";
 import { useSelector } from "react-redux";

@@ -8,6 +8,7 @@ import { mockBook } from "../../../tests/mockData";
 
 describe("SelectedItemsFlyout", () => {
   const initialState = { items: [mockBook] };
+
   it("renders SelectedItemsFlyout component", () => {
     renderWithProviders(
       <MemoryRouter>
@@ -25,6 +26,7 @@ describe("SelectedItemsFlyout", () => {
     expect(screen.getByText("Unselect all")).toBeInTheDocument();
     expect(screen.getByText("Download")).toBeInTheDocument();
   });
+
   it("not renders SelectedItemsFlyout component with empty store", () => {
     renderWithProviders(
       <MemoryRouter>

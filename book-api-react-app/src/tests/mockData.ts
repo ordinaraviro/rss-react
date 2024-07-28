@@ -7,7 +7,6 @@ export const mockBook = {
   first_sentence: [
     "When Mr. Bilbo Baggins of Bag End announced that he would shortly be celebrating his eleventy-first birthday with a party of special magnificence, there was much talk and excitement in Hobbiton.",
   ],
-  lending_edition_s: "d",
   title: "The lord of the rings",
   type: "type",
   key: "OL25175074M",

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { BookInfo } from "../../api/books";
-import LinkButton from "../LinkButton/LinkButton";
-import { addItem, removeItem } from "../../redux/selectedItemsSlice";
-import { RootState } from "../../redux/store";
+import { BookInfo } from "../../../api/books";
+import LinkButton from "../../LinkButton/LinkButton";
+import { addItem, removeItem } from "../../../redux/selectedItemsSlice";
+import { RootState } from "../../../redux/store";
 
 interface Props {
   book: BookInfo;

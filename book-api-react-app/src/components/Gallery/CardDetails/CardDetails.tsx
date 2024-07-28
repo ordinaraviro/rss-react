@@ -1,8 +1,7 @@
 import { useState } from "react";
-import "./Gallery.scss";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { Loader } from "../Loader/Loader";
-import { booksApi } from "../../api/books";
+import { Loader } from "../../Loader/Loader";
+import { booksApi } from "../../../api/books";
 
 export default function CardDetails() {
   const location = useLocation();
