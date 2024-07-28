@@ -34,5 +34,3 @@ export const booksApi = createApi({
     }),
   }),
 });
-
-// export const { useGetBooksBySearchTextQuery } = booksApi;

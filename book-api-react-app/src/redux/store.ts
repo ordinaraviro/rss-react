@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { booksApi } from "../api/books";
-// import { setupListeners } from "@reduxjs/toolkit/query";
 import selectedItemsReducer from "./selectedItemsSlice";
 import searchTermReducer from "./searchTermSlice";
 
@@ -19,6 +18,5 @@ export function store(preloadedState?: Partial<RootState>) {
   });
 }
 
-// setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof configureStore>;
