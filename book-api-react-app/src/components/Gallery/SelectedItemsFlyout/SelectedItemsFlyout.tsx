@@ -3,6 +3,7 @@ import { RootState } from "../../../redux/store";
 import { clearItems } from "../../../redux/selectedItemsSlice";
 import Button from "../../Button/Button";
 import { BookInfo } from "../../../api/books";
+import { saveAs } from 'file-saver';
 
 export default function SelectedItemsFlyout() {
   const dispatch = useDispatch();
@@ -43,14 +44,8 @@ export default function SelectedItemsFlyout() {
 
   const downloadCSV = (csv: string, itemCount: number) => {
     const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `selected_books_${itemCount}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    saveAs(blob, `selected_books_${itemCount}.csv`);
+};
 
   const handleDownload = () => {
     const csv = convertToCSV(selectedItems);
