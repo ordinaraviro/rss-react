@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import "./SearchBar.module.scss";
 import { useTheme } from "../ThemeContext/useTheme";
 import Button from "../Button/Button";
@@ -10,27 +11,32 @@ export default function SearchBar() {
 
   const dispatch = useDispatch();
 
-  const handleChange = () => {
-    dispatch(setSearchTerm(localStorage.getItem("searchTerm") || ""));
-  };
+  const [inputValue, setInputValue] = useState("");
 
-  const [inputValue, setInputValue] = useState(
-    // localStorage.getItem("searchTerm") || "",
-    "",
-  );
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedSearchTerm = localStorage.getItem("searchTerm") || "";
+      setInputValue(storedSearchTerm);
+      dispatch(setSearchTerm(storedSearchTerm));
+    }
+  }, [dispatch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+  };
+
+  const handleSearch = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("searchTerm", inputValue);
+      dispatch(setSearchTerm(inputValue));
+    }
   };
 
   return (
     <div className="search-bar">
       <input type="text" value={inputValue} onChange={handleInputChange} />
       <Button
-        handleClick={() => {
-          localStorage.setItem("searchTerm", inputValue);
-          handleChange();
-        }}
+        handleClick={handleSearch}
       >
         Search
       </Button>
