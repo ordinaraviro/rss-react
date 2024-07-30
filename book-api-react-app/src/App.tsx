@@ -1,15 +1,17 @@
 import "./App.scss";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import Main from "./Pages/Main/Main";
-import { Routes, Route } from "react-router-dom";
-import Page404 from "./Pages/Page404/Page404";
-import CardDetails from "./components/Gallery/CardDetails/CardDetails";
-import { ThemeProvider } from "./components/ThemeContext/ThemeProvider";
+// import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+// import Main from "./pages/main";
+// import { Routes, Route } from "react-router-dom";
+// import Page404 from "./pages/Page404/Page404";
+// import CardDetails from "./components/Gallery/CardDetails/CardDetails";
+// import { ThemeProvider } from "./components/ThemeContext/ThemeProvider";
+// import image from '../public/vite.svg'
 
 export default function App() {
   return (
     <>
-      <ThemeProvider>
+    {/* <img src={image}></img> */}
+      {/* <ThemeProvider>
         <Routes>
           <Route
             path={"/"}
@@ -30,7 +32,8 @@ export default function App() {
             }
           />
         </Routes>
-      </ThemeProvider>
+      </ThemeProvider> */}
+      Hello World
     </>
   );
 }
