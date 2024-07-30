@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { Loader } from "../../Loader/Loader";
-import { booksApi } from "../../../api/books";
+import { booksApi } from "../../../redux/books";
 
 export default function CardDetails() {
   const location = useLocation();

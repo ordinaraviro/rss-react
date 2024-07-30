@@ -1,10 +1,10 @@
-import { BookInfo } from "../../api/books";
-import "./Gallery.scss";
+"use client";
+import { BookInfo } from "../../redux/books";
 import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card/Card";
 import { Loader } from "../Loader/Loader";
-import { booksApi } from "../../api/books";
+import { booksApi } from "../../redux/books";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";

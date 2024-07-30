@@ -5,8 +5,8 @@ export interface SearchTermState {
 }
 
 const initialState: SearchTermState = {
-  searchTerm: localStorage.getItem("searchTerm") || "",
-  // searchTerm: "harry",
+  // searchTerm: localStorage.getItem("searchTerm") || "",
+  searchTerm: "",
 };
 
 const searchTermSlice = createSlice({

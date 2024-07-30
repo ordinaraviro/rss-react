@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../ThemeContext/useTheme";
-import "./LinkButton.scss";
 import { ReactNode } from "react";
 
 export default function LinkButton({

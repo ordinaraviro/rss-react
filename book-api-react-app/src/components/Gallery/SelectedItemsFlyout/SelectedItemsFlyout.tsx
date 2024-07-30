@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { clearItems } from "../../../redux/selectedItemsSlice";
 import Button from "../../Button/Button";
-import { BookInfo } from "../../../api/books";
+import { BookInfo } from "../../../redux/books";
 
 export default function SelectedItemsFlyout() {
   const dispatch = useDispatch();

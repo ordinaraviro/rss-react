@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router-dom";
-import "./PaginationBar.scss";
 import Button from "../Button/Button";
 
 export default function PaginationBar() {

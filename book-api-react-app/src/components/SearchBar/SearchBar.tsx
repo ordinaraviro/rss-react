@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SearchBar.scss";
+import "./SearchBar.module.scss";
 import { useTheme } from "../ThemeContext/useTheme";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,8 @@ export default function SearchBar() {
   };
 
   const [inputValue, setInputValue] = useState(
-    localStorage.getItem("searchTerm") || "",
+    // localStorage.getItem("searchTerm") || "",
+    "",
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
