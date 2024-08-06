@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+// import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { Loader } from "../../Loader/Loader";
 import { booksApi } from "../../../redux/books";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export default function CardDetails() {
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
+  const location = usePathname();
+  const searchParams = useSearchParams();
+  const searchTerm = useSelector(
+    (state: RootState) => state.searchTerm.searchTerm,
+  );
 
   const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
     searchText: searchTerm,
@@ -26,14 +32,14 @@ export default function CardDetails() {
   }
 
   const book = data.docs[parseInt(searchParams.get("bookId")!)];
-  const newPath = location.pathname.replace("details", "");
+  const newPath = location.replace("details", "");
 
   return (
     <>
       <div className="card-detail">
         <Link
           className="card-details-close-btn"
-          to={`${newPath}?page=${searchParams.get("page")}`}
+          href={`${newPath}?page=${searchParams.get("page")}`}
         >
           Close details
         </Link>

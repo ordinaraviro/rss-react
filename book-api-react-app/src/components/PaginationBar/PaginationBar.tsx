@@ -1,8 +1,10 @@
-import { useSearchParams } from "react-router-dom";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Button from "../Button/Button";
 
 export default function PaginationBar() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams();
 
   const updateSearchParams = (direction: string) => {
     const newSearchParams = new URLSearchParams(searchParams);
@@ -11,15 +13,19 @@ export default function PaginationBar() {
     const newPage = direction === "Next" ? currentPage + 1 : currentPage - 1;
 
     newSearchParams.set("page", Math.max(newPage, 1).toString());
-    setSearchParams(newSearchParams);
+    return newSearchParams.toString()
   };
 
   return (
     <div className="pagination-bar">
-      <Button handleClick={() => updateSearchParams("Previous")}>
+      <Button handleClick={() => {
+        router.push(pathname + '?' + updateSearchParams('Previous'))
+      }}>
         &larr; Previous page
       </Button>
-      <Button handleClick={() => updateSearchParams("Next")}>
+      <Button handleClick={() => {
+        router.push(pathname + '?' + updateSearchParams('Next'))
+      }}>
         Next page &rarr;
       </Button>
     </div>

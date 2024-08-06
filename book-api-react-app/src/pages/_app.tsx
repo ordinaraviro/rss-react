@@ -1,25 +1,24 @@
 import "../index.scss";
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { wrapper } from "../redux/store";
 import { ThemeProvider } from "../components/ThemeContext/ThemeProvider";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { Provider } from "react-redux";
 
-function App({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, ...rest }: AppProps) => {
+  const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
-    <ThemeProvider>
-            <Head>
-        <title>Books Api App</title>
+    <Provider store={store}>
+        <ThemeProvider>
+         <Head>
+      <title>Books Api App</title>
       </Head>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
-}
+                  <Component {...props.pageProps} />
+        </ThemeProvider>
 
-export default function AppWrapper(props: AppProps) {
-  return (
-    <Provider store={store()}>
-      <App {...props} />
     </Provider>
   );
-}
+};
+
+export default MyApp;

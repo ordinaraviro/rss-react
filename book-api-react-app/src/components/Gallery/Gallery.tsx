@@ -1,6 +1,4 @@
-"use client";
 import { BookInfo } from "../../redux/books";
-import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card/Card";
 import { Loader } from "../Loader/Loader";
@@ -8,19 +6,27 @@ import { booksApi } from "../../redux/books";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { ReactNode } from "react";
 
-export default function Gallery() {
+interface GalleryProps {
+  children: ReactNode;
+}
+
+export default function Gallery({ children }: GalleryProps) {
   const searchTerm = useSelector(
     (state: RootState) => state.searchTerm.searchTerm,
   );
 
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
   const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
     searchText: searchTerm,
     page,
   });
+
 
   if (error) {
     return <div>There are some error</div>;
@@ -52,7 +58,7 @@ export default function Gallery() {
     );
   }
 
-  const newPath = location.pathname.replace("details", "");
+  const newPath = pathName.replace("details", "");
 
   return (
     <>
@@ -65,12 +71,12 @@ export default function Gallery() {
                 ? "gallery-shut-details"
                 : "gallery-shut-details gallery-shut-details_hide"
             }
-            to={`${newPath}?page=${searchParams.get("page")}`}
+            href={`${newPath}?page=${searchParams.get("page")}`}
             onClick={handleClick}
           ></Link>
           {books.map(createCard)}
         </div>
-        <Outlet />
+        {children}
       </div>
       <SelectedItemsFlyout />
     </>
