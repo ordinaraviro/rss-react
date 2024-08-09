@@ -1,19 +1,24 @@
-// import { Link } from "react-router-dom";
 import Link from "next/link";
 import { useTheme } from "../ThemeContext/useTheme";
 import { ReactNode } from "react";
 
+interface LinkButtonProps {
+  path: string;
+  children: ReactNode;
+  onClick?: () => void;
+}
+
 export default function LinkButton({
   path,
   children,
-}: {
-  path: string;
-  children: ReactNode;
-}) {
+  onClick,
+}: LinkButtonProps) {
   const { theme } = useTheme();
   return (
     <Link
-      className={theme === "dark" ? "link-btn link-btn-dark" : "link-btn"} href={path}      // to={path}
+      className={theme === "dark" ? "link-btn link-btn-dark" : "link-btn"}
+      href={path}
+      onClick={onClick}
     >
       {children}
     </Link>

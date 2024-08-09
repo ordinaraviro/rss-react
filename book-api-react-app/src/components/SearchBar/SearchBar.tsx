@@ -1,15 +1,15 @@
-
 import React, { useEffect, useState } from "react";
 import "./SearchBar.module.scss";
 import { useTheme } from "../ThemeContext/useTheme";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../../redux/searchTermSlice";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  setLoading: (arg: boolean) => void;
+}
+
+export default function SearchBar({ setLoading }: SearchBarProps) {
   const { toggleTheme } = useTheme();
-
-  const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState("");
 
@@ -17,29 +17,38 @@ export default function SearchBar() {
     if (typeof window !== "undefined") {
       const storedSearchTerm = localStorage.getItem("searchTerm") || "";
       setInputValue(storedSearchTerm);
-      dispatch(setSearchTerm(storedSearchTerm));
+      if (
+        !searchParams.get("q") ||
+        searchParams.get("q") !== localStorage.getItem("searchTerm")
+      )
+        router.push(pathname + "?" + updateSearchParams(storedSearchTerm));
     }
-  }, [dispatch]);
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+  };
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const updateSearchParams = (newTerm: string) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("q", newTerm);
+    return newSearchParams.toString();
   };
 
   const handleSearch = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("searchTerm", inputValue);
-      dispatch(setSearchTerm(inputValue));
+      setLoading(true);
+      router.push(pathname + "?" + updateSearchParams(inputValue));
     }
   };
 
   return (
     <div className="search-bar">
       <input type="text" value={inputValue} onChange={handleInputChange} />
-      <Button
-        handleClick={handleSearch}
-      >
-        Search
-      </Button>
+      <Button handleClick={handleSearch}>Search</Button>
       <Button handleClick={toggleTheme}>Toggle theme</Button>
     </div>
   );

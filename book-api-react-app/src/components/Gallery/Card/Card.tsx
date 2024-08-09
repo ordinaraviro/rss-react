@@ -7,6 +7,7 @@ import { RootState } from "../../../redux/store";
 interface Props {
   book: BookInfo;
   link: string;
+  onClick: () => void;
 }
 
 export default function Card(props: Props) {
@@ -26,7 +27,9 @@ export default function Card(props: Props) {
   return (
     <>
       <div className="card">
-        <LinkButton path={props.link}>Details</LinkButton>
+        <LinkButton path={props.link} onClick={props.onClick}>
+          Details
+        </LinkButton>
         {props.book.cover_edition_key ? (
           <img
             src={`https://covers.openlibrary.org/b/olid/${props.book.cover_edition_key}-M.jpg`}

@@ -10,13 +10,12 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 
   return (
     <Provider store={store}>
-        <ThemeProvider>
-         <Head>
-      <title>Books Api App</title>
-      </Head>
-                  <Component {...props.pageProps} />
-        </ThemeProvider>
-
+      <ThemeProvider>
+        <Head>
+          <title>Books Api App</title>
+        </Head>
+        <Component {...props.pageProps} />
+      </ThemeProvider>
     </Provider>
   );
 };
