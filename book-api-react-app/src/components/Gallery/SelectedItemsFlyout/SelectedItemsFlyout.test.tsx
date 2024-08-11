@@ -5,23 +5,28 @@ import SelectedItemsFlyout from "./SelectedItemsFlyout";
 import { ThemeProvider } from "../../ThemeContext/ThemeProvider";
 import { renderWithProviders } from "../../../tests/testReduxStore";
 import { mockBook } from "../../../tests/mockData";
+import Card from "../Card/Card";
 
 describe("SelectedItemsFlyout", () => {
-  const initialState = { items: [mockBook] };
-
   it("renders SelectedItemsFlyout component", () => {
     renderWithProviders(
       <MemoryRouter>
         <ThemeProvider>
+          <Card
+            book={mockBook}
+            link={""}
+            onClick={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          ></Card>
           <SelectedItemsFlyout />
         </ThemeProvider>
       </MemoryRouter>,
-      {
-        preloadedState: {
-          selectedItems: initialState,
-        },
-      },
     );
+    const firstCardLink = screen.getByRole("checkbox");
+
+    fireEvent.click(firstCardLink!);
+
     expect(screen.getByText("1 items are selected")).toBeInTheDocument();
     expect(screen.getByText("Unselect all")).toBeInTheDocument();
     expect(screen.getByText("Download")).toBeInTheDocument();
@@ -43,15 +48,20 @@ describe("SelectedItemsFlyout", () => {
     renderWithProviders(
       <MemoryRouter>
         <ThemeProvider>
+          <Card
+            book={mockBook}
+            link={""}
+            onClick={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          ></Card>
           <SelectedItemsFlyout />
         </ThemeProvider>
       </MemoryRouter>,
-      {
-        preloadedState: {
-          selectedItems: initialState,
-        },
-      },
     );
+    const firstCardLink = screen.getByRole("checkbox");
+
+    fireEvent.click(firstCardLink!);
     expect(screen.getByText("1 items are selected")).toBeInTheDocument();
     expect(screen.getByText("Unselect all")).toBeInTheDocument();
     expect(screen.getByText("Download")).toBeInTheDocument();

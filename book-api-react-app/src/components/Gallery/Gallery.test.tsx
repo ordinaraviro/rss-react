@@ -1,48 +1,105 @@
-import { describe, it, expect } from "vitest";
-import { http, HttpResponse, delay } from "msw";
-import { setupServer } from "msw/node";
-import { ThemeProvider } from "../ThemeContext/ThemeProvider";
-import { screen, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Gallery from "./Gallery";
-import { renderWithProviders } from "../../tests/testReduxStore";
+import { usePathname, useSearchParams } from "next/navigation";
+import { vi } from "vitest";
 import { mockData } from "../../tests/mockData";
+import { describe, it, expect } from "vitest";
+import { ThemeProvider } from "../ThemeContext/ThemeProvider";
+import { renderWithProviders } from "../../tests/testReduxStore";
 
-export const handlers = [
-  http.get("https://openlibrary.org/search.json", async () => {
-    await delay(150);
-    return HttpResponse.json(mockData);
-  }),
-];
+// Mock next/navigation hooks
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+  useSearchParams: vi.fn(),
+  useRouter: vi.fn(),
+}));
 
-const server = setupServer(...handlers);
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const mockUsePathname = usePathname as jest.Mock;
+const mockUseSearchParams = useSearchParams as jest.Mock;
 
-describe("Gallery", () => {
-  it("renders Gallery component", () => {
-    renderWithProviders(
-      <MemoryRouter>
-        <ThemeProvider>
-          <Gallery />
-        </ThemeProvider>
-      </MemoryRouter>,
+const mockOneData = {
+  numFound: 741,
+  start: 0,
+  numFoundExact: true,
+  docs: [
+    {
+      author_name: ["Wayne G. Hammond", "Christina Scull"],
+      cover_edition_key: "OL3410671M",
+      edition_key: ["OL26236284M", "OL26236285M", "OL21363237M", "OL3410671M"],
+      first_publish_year: 2005,
+      first_sentence: ["When Mr. Bilbo Baggins in Hobbiton."],
+      key: "/works/OL548432W",
+      title: "The lord of the rings",
+    },
+  ],
+  q: "the lord of the rings",
+  offset: false,
+};
+
+describe("Gallery Component", () => {
+  const mockSetLoading = vi.fn();
+
+  beforeEach(() => {
+    mockUsePathname.mockReturnValue("/books");
+    mockUseSearchParams.mockReturnValue({
+      get: (key: string) => {
+        if (key === "page") return "1";
+        if (key === "q") return "test";
+        if (key === "bookId") return null;
+        return null;
+      },
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("renders loader when loading is true", () => {
+    render(
+      <Gallery data={mockData} loading={true} setLoading={mockSetLoading}>
+        <div></div>
+      </Gallery>,
     );
+
     expect(screen.getByText("Loading")).toBeInTheDocument();
   });
 
-  it("shows Gallery after fetching data", async () => {
+  it("renders gallery with books when loading is false", () => {
     renderWithProviders(
-      <MemoryRouter initialEntries={["/details?page=1&bookId=0"]}>
-        <ThemeProvider>
-          <Gallery />
-        </ThemeProvider>
-      </MemoryRouter>,
+      <ThemeProvider>
+        <Gallery data={mockData} loading={false} setLoading={mockSetLoading}>
+          <div />
+        </Gallery>
+      </ThemeProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByText("Brian Sibley")).toBeInTheDocument();
-    });
+    expect(screen.getByText("Brian Sibley")).toBeInTheDocument();
+  });
+
+  it("handles book card click to show details", () => {
+    renderWithProviders(
+      <ThemeProvider>
+        <Gallery data={mockOneData} loading={false} setLoading={mockSetLoading}>
+          <div />
+        </Gallery>
+      </ThemeProvider>,
+    );
+
+    const firstCardLink = screen.getByText("Details");
+
+    fireEvent.click(firstCardLink!);
+
+    expect(mockSetLoading).toHaveBeenCalled();
+  });
+
+  it("calls setLoading(false) when data is available", () => {
+    render(
+      <Gallery data={mockData} loading={true} setLoading={mockSetLoading}>
+        <div />
+      </Gallery>,
+    );
+
+    expect(mockSetLoading).toHaveBeenCalledWith(false);
   });
 });

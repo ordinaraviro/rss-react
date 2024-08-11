@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { render, RenderOptions } from "@testing-library/react";
-import { AppStore, RootState, store } from "../redux/store";
+import { AppStore, RootState, makeStore } from "../redux/store";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: Partial<RootState>;
@@ -12,18 +12,14 @@ export function renderWithProviders(
   ui: React.ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
 ) {
-  const {
-    preloadedState = {},
-    testStore = store(preloadedState),
-    ...renderOptions
-  } = extendedRenderOptions;
+  const { testStore = makeStore(), ...renderOptions } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={testStore}>{children}</Provider>
   );
 
   return {
-    store,
+    makeStore,
     ...render(ui, { wrapper: Wrapper, ...renderOptions }),
   };
 }

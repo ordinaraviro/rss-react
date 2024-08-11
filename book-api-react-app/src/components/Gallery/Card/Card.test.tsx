@@ -11,7 +11,13 @@ describe("Card", () => {
     renderWithProviders(
       <MemoryRouter>
         <ThemeProvider>
-          <Card book={mockBook} link={"/test"} />
+          <Card
+            book={mockBook}
+            link={"/test"}
+            onClick={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </ThemeProvider>
       </MemoryRouter>,
     );
