@@ -1,53 +1,51 @@
-import { screen, waitFor } from "@testing-library/react";
-import { http, HttpResponse, delay } from "msw";
-import { setupServer } from "msw/node";
+import { render, screen, fireEvent } from "@testing-library/react";
 import CardDetails from "./CardDetails";
-import { describe, it, expect } from "vitest";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "../../ThemeContext/ThemeProvider";
-import { renderWithProviders } from "../../../tests/testReduxStore";
+import { usePathname, useSearchParams } from "next/navigation";
+import { describe, it, expect, vi } from "vitest";
 import { mockData } from "../../../tests/mockData";
 
-export const handlers = [
-  http.get("https://openlibrary.org/search.json", async () => {
-    await delay(150);
-    return HttpResponse.json(mockData);
-  }),
-];
+// Mock next/navigation hooks
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+  useSearchParams: vi.fn(),
+}));
 
-const server = setupServer(...handlers);
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const mockUsePathname = usePathname as jest.Mock;
+const mockUseSearchParams = useSearchParams as jest.Mock;
 
 describe("CardDetails", () => {
-  it("shows loading indicator while fetching data", async () => {
-    renderWithProviders(
-      <MemoryRouter initialEntries={["/details?page=1&bookId=0"]}>
-        <ThemeProvider>
-          <Routes>
-            <Route path="/details" element={<CardDetails />} />
-          </Routes>
-        </ThemeProvider>
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText("Loading")).toBeInTheDocument();
+  beforeEach(() => {
+    mockUsePathname.mockReturnValue("/books/details");
+    mockUseSearchParams.mockReturnValue({
+      get: (key: string) => {
+        if (key === "bookId") return "0";
+        if (key === "page") return "1";
+        if (key === "q") return "test";
+        return null;
+      },
+    });
   });
 
-  it("shows loading indicator while fetching data", async () => {
-    renderWithProviders(
-      <MemoryRouter initialEntries={["/details?page=1&bookId=0"]}>
-        <ThemeProvider>
-          <Routes>
-            <Route path="/details" element={<CardDetails />} />
-          </Routes>
-        </ThemeProvider>
-      </MemoryRouter>,
-    );
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-    await waitFor(() => {
-      expect(screen.getByText("Author: Brian Sibley")).toBeInTheDocument();
-    });
+  it("renders book details correctly", () => {
+    render(<CardDetails data={mockData} />);
+
+    expect(
+      screen.getByText("Title: The lord of the rings"),
+    ).toBeInTheDocument();
+  });
+
+  it("hides card details when the close button is clicked", () => {
+    render(<CardDetails data={mockData} />);
+
+    const closeButton = screen.getByText("Close details");
+    fireEvent.click(closeButton);
+
+    expect(
+      screen.queryByText("Title: The lord of the rings"),
+    ).not.toBeInTheDocument();
   });
 });

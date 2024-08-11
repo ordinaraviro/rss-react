@@ -1,41 +1,57 @@
-import { describe, it, expect } from "vitest";
-import { ThemeProvider } from "../ThemeContext/ThemeProvider";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PaginationBar from "./PaginationBar";
-import { MemoryRouter, useSearchParams } from "react-router-dom";
+import { vi } from "vitest";
+import { ThemeProvider } from "../ThemeContext/ThemeProvider";
 
-function Location() {
-  const [searchParams] = useSearchParams();
-  return <>{searchParams.get("page")}</>;
-}
+// Mock the hooks from next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+  useRouter: vi.fn(),
+  useSearchParams: vi.fn(),
+}));
 
 describe("PaginationBar", () => {
-  it("renders PaginationBar component", () => {
-    render(
-      <MemoryRouter>
-        <ThemeProvider>
-          <PaginationBar />
-        </ThemeProvider>
-      </MemoryRouter>,
+  const mockPush = vi.fn();
+  const mockHandleClick = vi.fn();
+
+  beforeEach(() => {
+    (usePathname as jest.Mock).mockReturnValue("/test-path");
+    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
+    (useSearchParams as jest.Mock).mockReturnValue(
+      new URLSearchParams("page=1"),
     );
-    expect(screen.getByText("Next page →")).toBeInTheDocument();
-    expect(screen.getByText("← Previous page")).toBeInTheDocument();
   });
 
-  it("updates search params on button click", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("navigates to the previous page when 'Previous page' is clicked", () => {
     render(
-      <MemoryRouter initialEntries={["/?page=1"]}>
-        <ThemeProvider>
-          <PaginationBar />
-          <Location />
-        </ThemeProvider>
-      </MemoryRouter>,
+      <ThemeProvider>
+        <PaginationBar handleClick={mockHandleClick} />
+      </ThemeProvider>,
     );
 
-    fireEvent.click(screen.getByText("Next page →"));
-    expect(screen.getByText("2")).toBeInTheDocument();
+    const prevButton = screen.getByText(/← Previous page/i);
+    fireEvent.click(prevButton);
 
-    fireEvent.click(screen.getByText("← Previous page"));
-    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(mockHandleClick).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith("/test-path?page=1");
+  });
+
+  it("navigates to the next page when 'Next page' is clicked", () => {
+    render(
+      <ThemeProvider>
+        <PaginationBar handleClick={mockHandleClick} />
+      </ThemeProvider>,
+    );
+
+    const nextButton = screen.getByText(/Next page →/i);
+    fireEvent.click(nextButton);
+
+    expect(mockHandleClick).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith("/test-path?page=2");
   });
 });

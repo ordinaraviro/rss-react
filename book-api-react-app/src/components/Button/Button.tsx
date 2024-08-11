@@ -1,5 +1,5 @@
 import { useTheme } from "../ThemeContext/useTheme";
-import "./Button.scss";
+import "./Button.module.scss";
 import { ReactNode } from "react";
 
 export default function Button({

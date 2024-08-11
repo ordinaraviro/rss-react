@@ -1,40 +1,53 @@
-import { BookInfo } from "../../api/books";
-import "./Gallery.scss";
-import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
+import { BookInfo, BooksResponse } from "../../redux/books";
 import PaginationBar from "../PaginationBar/PaginationBar";
 import Card from "./Card/Card";
 import { Loader } from "../Loader/Loader";
-import { booksApi } from "../../api/books";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { ReactNode, useEffect, useState } from "react";
 
-export default function Gallery() {
-  const searchTerm = useSelector(
-    (state: RootState) => state.searchTerm.searchTerm,
-  );
+interface GalleryProps {
+  data: BooksResponse;
+  children: ReactNode;
+  loading: boolean;
+  setLoading: (arg: boolean) => void;
+}
 
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
+export default function Gallery({
+  data,
+  children,
+  loading,
+  setLoading,
+}: GalleryProps) {
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
   const page = searchParams.get("page") ? searchParams.get("page") : "1";
-  const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
-    searchText: searchTerm,
-    page,
-  });
+  const q = searchParams.get("q") ? searchParams.get("q") : "publish_year%2024";
 
-  if (error) {
-    return <div>There are some error</div>;
-  }
+  const [loadingDetails, setLoadingDetails] = useState(false);
 
-  if (isFetching) {
+  const detailsFlag = () => {
+    setLoadingDetails(true);
+  };
+
+  const handleStart = () => {
+    setLoading(true);
+  };
+  const handleComplete = () => {
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (data) handleComplete();
+    // if (data) setLoadingDetails(false);
+
+    return () => {};
+  }, [data]);
+
+  if (loading) {
     return <Loader />;
   }
-
-  if (!data || !data.numFound) {
-    return <div className="loading">Nothing found</div>;
-  }
-
-  const books = data.docs;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (!searchParams.get("bookId")) {
@@ -45,18 +58,19 @@ export default function Gallery() {
   function createCard(book: BookInfo, index: number) {
     return (
       <Card
-        link={`/details?page=${page}&bookId=${index}`}
+        link={`/details?page=${page}&bookId=${index}&q=${q}`}
         key={index}
         book={book}
+        onClick={detailsFlag}
       />
     );
   }
 
-  const newPath = location.pathname.replace("details", "");
+  const newPath = pathName.replace("details", "");
 
   return (
     <>
-      <PaginationBar />
+      <PaginationBar handleClick={handleStart} />
       <div className="callery-wrapper">
         <div className="gallery">
           <Link
@@ -65,12 +79,13 @@ export default function Gallery() {
                 ? "gallery-shut-details"
                 : "gallery-shut-details gallery-shut-details_hide"
             }
-            to={`${newPath}?page=${searchParams.get("page")}`}
+            href={`${newPath}?page=${searchParams.get("page")}&q=${searchParams.get("q")}`}
             onClick={handleClick}
           ></Link>
-          {books.map(createCard)}
+          {data.docs.map(createCard)}
         </div>
-        <Outlet />
+        {loadingDetails && <Loader />}
+        {children}
       </div>
       <SelectedItemsFlyout />
     </>

@@ -1,3 +1,10 @@
+@import "./components/Button/Button.module.scss";
+@import "./components/SearchBar/SearchBar.module.scss";
+@import "./components/Loader/Loader.module.scss";
+@import "./components/LinkButton/LinkButton.module.scss";
+@import "./components/Gallery/Gallery.module.scss";
+@import "./pages/Main.module.scss";
+
 $colorWhite: #fff;
 
 :root {

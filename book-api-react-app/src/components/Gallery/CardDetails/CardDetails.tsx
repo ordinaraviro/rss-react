@@ -1,39 +1,30 @@
 import { useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { Loader } from "../../Loader/Loader";
-import { booksApi } from "../../../api/books";
+import { BooksResponse } from "../../../redux/books";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-export default function CardDetails() {
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
+export default function CardDetails({ data }: { data: BooksResponse }) {
+  const location = usePathname();
+  const searchParams = useSearchParams();
 
-  const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
-    searchText: searchTerm,
-    page: searchParams.get("page"),
-  });
+  const [showFlag, setShowFlag] = useState(true);
 
-  if (error) {
-    return <>There are some error: {error}</>;
-  }
-
-  if (isFetching) {
-    return <Loader />;
-  }
-
-  if (!data || !data.numFound) {
-    return <div className="loading">Nothing found</div>;
+  function handleClose() {
+    setShowFlag(false);
   }
 
   const book = data.docs[parseInt(searchParams.get("bookId")!)];
-  const newPath = location.pathname.replace("details", "");
+  const newPath = location.replace("details", "");
+
+  if (!showFlag) return "";
 
   return (
     <>
       <div className="card-detail">
         <Link
           className="card-details-close-btn"
-          to={`${newPath}?page=${searchParams.get("page")}`}
+          href={`${newPath}?page=${searchParams.get("page")}&q=${searchParams.get("q")}`}
+          onClick={handleClose}
         >
           Close details
         </Link>

@@ -11,6 +11,8 @@ export default defineConfig({
     setupFiles: "./src/tests/setup.ts",
     coverage: {
       provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/pages/*", "src/next.config.mjs", "src/**/*.test.{ts,tsx}"],
     },
   },
 });
