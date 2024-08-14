@@ -6,12 +6,22 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: {
+      globals: globals.browser,
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     rules: {
+      "react/react-in-jsx-scope": "off",
       "@typescript-eslint/no-explicit-any": "error",
     },
   },
