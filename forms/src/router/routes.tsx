@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
+import Main from "../pages/Main";
+import UncontrolledForm from "../pages/UncontrolledForm";
+import ControlledForm from "../pages/ControlledForm";
 
 export const routes = [
     {
-      name: 'Home',
+      name: 'Main',
       path: '/',
-      element: <>home<Link to={"/Form"}>form</Link><Link to={"/ReactHookForm"}>React Hook Form</Link></>,
+      element: <Main/>,
     },
     {
-      name: 'Form',
-      path: '/Form',
-      element: <>form<Link to={"/"}>main</Link></>,
+      name: 'Uncontrolled Form',
+      path: '/uncontrolled-form',
+      element: <UncontrolledForm/>,
     },
     {
-      name: 'React Hook Form',
-      path: '/ReactHookForm',
-      element: <>React Hook Form<Link to={"/"}>main</Link></>,
+      name: 'Controlled Form',
+      path: '/controlled-form',
+      element: <ControlledForm/>,
     },
     {
       name: '404',
