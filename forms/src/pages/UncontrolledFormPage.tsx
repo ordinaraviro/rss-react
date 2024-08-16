@@ -1,13 +1,11 @@
-import { Link } from "react-router-dom";
 import UncontrolledForm from "../components/UncontrolledForm/UncontrolledForm";
+import NavBar from "../components/NavBar/NavBar";
 
 const UncontrolledFormPage = () => {
   return (
     <div>
-      <h1>Uncontrolled Form</h1>
+      <NavBar/>
       <UncontrolledForm />
-      <Link to="/">Main</Link>
-      <Link to="/controlled-form">Controlled Form</Link>
     </div>
   );
 };

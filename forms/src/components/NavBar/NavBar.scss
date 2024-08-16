@@ -1,0 +1,10 @@
+.nav-bar {
+    a {
+        margin: 0 10px;
+    }
+
+    a.active {
+        text-decoration: underline;
+        color: #213547;
+    }
+}

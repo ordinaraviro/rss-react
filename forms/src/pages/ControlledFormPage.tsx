@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar/NavBar";
 
 const ControlledFormPage = () => {
   return (
     <div>
-      <h1>Controlled Form</h1>
-      <Link to="/">Main</Link>
-      <Link to="/uncontrolled-form">Uncontrolled Form</Link>
+      <NavBar/>
     </div>
   );
 };

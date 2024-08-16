@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
+import './UncontrolledForm.scss'
 
 function UncontrolledForm() {
   const inputName = useRef<HTMLInputElement>(null);
