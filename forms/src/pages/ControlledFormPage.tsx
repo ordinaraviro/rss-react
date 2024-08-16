@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ControlledForm = () => {
-
+const ControlledFormPage = () => {
   return (
     <div>
       <h1>Controlled Form</h1>
@@ -11,4 +10,4 @@ const ControlledForm = () => {
   );
 };
 
-export default ControlledForm;
+export default ControlledFormPage;

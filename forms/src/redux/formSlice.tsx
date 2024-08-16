@@ -18,7 +18,7 @@ interface FormState {
 
 const initialState: FormState = {
   data: [],
-  countries: ["USA", "Canada", "UK"], 
+  countries: ["USA", "Canada", "UK"],
 };
 
 const formSlice = createSlice({
