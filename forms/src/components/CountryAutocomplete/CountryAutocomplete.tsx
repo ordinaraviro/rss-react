@@ -1,4 +1,4 @@
-import { useState, useRef, RefObject } from "react";
+import { useState, RefObject } from "react";
 
 const countries = [
   "United States",

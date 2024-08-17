@@ -3,6 +3,7 @@ import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
 import "./UncontrolledForm.scss";
 import { useDispatch } from "react-redux";
 import { addUncontrolledFormData } from "../../redux/formSlice";
+import { useNavigate } from "react-router-dom";
 
 function UncontrolledForm() {
   const inputName = useRef<HTMLInputElement>(null);
@@ -16,8 +17,9 @@ function UncontrolledForm() {
   const inputCountry = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     alert(
       `Name: ${inputName.current?.value} Age: ${inputAge.current?.value} Email: ${inputEmail.current?.value} Password: ${inputPassword.current?.value} Gender: ${inputGender.current?.value}`,
@@ -25,7 +27,8 @@ function UncontrolledForm() {
 
     const reader = new FileReader();
     const file = inputImg.current?.files?.[0];
-    reader.onloadend = () => {
+
+    reader.onloadend = async () => {
       const base64String = reader.result as string;
 
       dispatch(
@@ -34,13 +37,16 @@ function UncontrolledForm() {
           age: inputAge.current?.value || "",
           email: inputEmail.current?.value || "",
           password: inputPassword.current?.value || "",
+          repeatPassword: inputRepeatPassword.current?.value || "",
           gender: inputGender.current?.value || "",
           terms: !!inputTerm.current?.checked,
           picture: base64String || "",
           country: inputCountry.current?.value || "",
         }),
       );
+      navigate("/");
     };
+
     if (file) {
       reader.readAsDataURL(file);
     } else {
@@ -51,12 +57,14 @@ function UncontrolledForm() {
           age: inputAge.current?.value || "",
           email: inputEmail.current?.value || "",
           password: inputPassword.current?.value || "",
+          repeatPassword: inputRepeatPassword.current?.value || "",
           gender: inputGender.current?.value || "",
           terms: !!inputTerm.current?.checked,
           picture: "",
           country: inputCountry.current?.value || "",
         }),
       );
+      navigate("/");
     }
   }
 

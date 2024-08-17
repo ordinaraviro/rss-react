@@ -5,6 +5,7 @@ export interface FormData {
   age: string;
   email: string;
   password: string;
+  repeatPassword: string;
   gender: string;
   terms: boolean;
   picture: string;

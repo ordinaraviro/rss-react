@@ -1,11 +1,11 @@
+import { ControlledForm } from "../../components/ControlledForm/ControlledForm";
 import NavBar from "../../components/NavBar/NavBar";
-import UncontrolledForm from "../../components/UncontrolledForm/UncontrolledForm";
 
 const ControlledFormPage = () => {
   return (
     <div>
       <NavBar />
-      <UncontrolledForm />
+      <ControlledForm />
     </div>
   );
 };
