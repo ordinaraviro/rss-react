@@ -4,7 +4,7 @@ import NavBar from "../../components/NavBar/NavBar";
 const UncontrolledFormPage = () => {
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <UncontrolledForm />
     </div>
   );

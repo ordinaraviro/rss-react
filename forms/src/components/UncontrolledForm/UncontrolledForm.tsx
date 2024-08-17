@@ -1,6 +1,6 @@
 import { FormEvent, useRef } from "react";
 import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
-import './UncontrolledForm.scss'
+import "./UncontrolledForm.scss";
 import { useDispatch } from "react-redux";
 import { addUncontrolledFormData } from "../../redux/formSlice";
 
@@ -12,23 +12,52 @@ function UncontrolledForm() {
   const inputRepeatPassword = useRef<HTMLInputElement>(null);
   const inputGender = useRef<HTMLInputElement>(null);
   const inputTerm = useRef<HTMLInputElement>(null);
+  const inputImg = useRef<HTMLInputElement>(null);
   const inputCountry = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
 
-  function handleSubmit(event:FormEvent) {
+  function handleSubmit(event: FormEvent) {
     event.preventDefault();
     alert(
       `Name: ${inputName.current?.value} Age: ${inputAge.current?.value} Email: ${inputEmail.current?.value} Password: ${inputPassword.current?.value} Gender: ${inputGender.current?.value}`,
     );
-    dispatch(addUncontrolledFormData({  name: inputName.current?.value ||"",
-        age: inputAge.current?.value ||"",
-        email: inputEmail.current?.value ||"",
-        password: inputPassword.current?.value ||"",
-        gender: inputGender.current?.value ||"",
-        terms: !!inputTerm,
-        picture: 'string',
-        country: inputCountry.current?.value || ''}))
+
+    const reader = new FileReader();
+    const file = inputImg.current?.files?.[0];
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+
+      dispatch(
+        addUncontrolledFormData({
+          name: inputName.current?.value || "",
+          age: inputAge.current?.value || "",
+          email: inputEmail.current?.value || "",
+          password: inputPassword.current?.value || "",
+          gender: inputGender.current?.value || "",
+          terms: !!inputTerm.current?.checked,
+          picture: base64String || "",
+          country: inputCountry.current?.value || "",
+        }),
+      );
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      // Handle case where no file is selected
+      dispatch(
+        addUncontrolledFormData({
+          name: inputName.current?.value || "",
+          age: inputAge.current?.value || "",
+          email: inputEmail.current?.value || "",
+          password: inputPassword.current?.value || "",
+          gender: inputGender.current?.value || "",
+          terms: !!inputTerm.current?.checked,
+          picture: "",
+          country: inputCountry.current?.value || "",
+        }),
+      );
+    }
   }
 
   return (
@@ -75,7 +104,11 @@ function UncontrolledForm() {
           Terms :
           <input type="checkbox" ref={inputTerm} />
         </label>
-        <CountryAutocomplete func={inputCountry}/>
+        <label>
+          File :
+          <input type="file" ref={inputImg} placeholder="Choose image" />
+        </label>
+        <CountryAutocomplete func={inputCountry} />
         <button type="submit">Submit</button>
       </form>
     </div>

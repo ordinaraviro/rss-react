@@ -4,8 +4,8 @@ import UncontrolledForm from "../../components/UncontrolledForm/UncontrolledForm
 const ControlledFormPage = () => {
   return (
     <div>
-      <NavBar/>
-      <UncontrolledForm/>
+      <NavBar />
+      <UncontrolledForm />
     </div>
   );
 };

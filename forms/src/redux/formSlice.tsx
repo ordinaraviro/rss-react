@@ -36,6 +36,7 @@ const formSlice = createSlice({
   },
 });
 
-export const { addUncontrolledFormData, addControlledFormData } = formSlice.actions;
+export const { addUncontrolledFormData, addControlledFormData } =
+  formSlice.actions;
 
 export default formSlice.reducer;

@@ -13,7 +13,7 @@ const countries = [
   "Japan",
 ];
 
-function CountryAutocomplete({func}:{func:RefObject<HTMLInputElement>}) {
+function CountryAutocomplete({ func }: { func: RefObject<HTMLInputElement> }) {
   const [inputValue, setInputValue] = useState("");
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
