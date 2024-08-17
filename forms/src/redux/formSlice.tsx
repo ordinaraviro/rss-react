@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface FormData {
+export interface FormData {
   name: string;
-  age: number;
+  age: string;
   email: string;
   password: string;
   gender: string;
@@ -11,13 +11,15 @@ interface FormData {
   country: string;
 }
 
-interface FormState {
-  data: FormData[];
+export interface FormState {
+  uncontrolledFormData: FormData[];
+  controlledFormData: FormData[];
   countries: string[];
 }
 
 const initialState: FormState = {
-  data: [],
+  uncontrolledFormData: [],
+  controlledFormData: [],
   countries: ["USA", "Canada", "UK"],
 };
 
@@ -25,12 +27,15 @@ const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    addFormData: (state, action: PayloadAction<FormData>) => {
-      state.data.push(action.payload);
+    addUncontrolledFormData: (state, action: PayloadAction<FormData>) => {
+      state.uncontrolledFormData.push(action.payload);
+    },
+    addControlledFormData: (state, action: PayloadAction<FormData>) => {
+      state.controlledFormData.push(action.payload);
     },
   },
 });
 
-export const { addFormData } = formSlice.actions;
+export const { addUncontrolledFormData, addControlledFormData } = formSlice.actions;
 
 export default formSlice.reducer;

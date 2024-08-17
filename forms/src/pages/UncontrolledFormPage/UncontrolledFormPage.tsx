@@ -1,5 +1,5 @@
-import UncontrolledForm from "../components/UncontrolledForm/UncontrolledForm";
-import NavBar from "../components/NavBar/NavBar";
+import UncontrolledForm from "../../components/UncontrolledForm/UncontrolledForm";
+import NavBar from "../../components/NavBar/NavBar";
 
 const UncontrolledFormPage = () => {
   return (

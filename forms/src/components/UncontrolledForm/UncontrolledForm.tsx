@@ -1,6 +1,8 @@
-import { useRef } from "react";
+import { FormEvent, useRef } from "react";
 import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
 import './UncontrolledForm.scss'
+import { useDispatch } from "react-redux";
+import { addUncontrolledFormData } from "../../redux/formSlice";
 
 function UncontrolledForm() {
   const inputName = useRef<HTMLInputElement>(null);
@@ -10,11 +12,23 @@ function UncontrolledForm() {
   const inputRepeatPassword = useRef<HTMLInputElement>(null);
   const inputGender = useRef<HTMLInputElement>(null);
   const inputTerm = useRef<HTMLInputElement>(null);
+  const inputCountry = useRef<HTMLInputElement>(null);
 
-  function handleSubmit() {
+  const dispatch = useDispatch();
+
+  function handleSubmit(event:FormEvent) {
+    event.preventDefault();
     alert(
       `Name: ${inputName.current?.value} Age: ${inputAge.current?.value} Email: ${inputEmail.current?.value} Password: ${inputPassword.current?.value} Gender: ${inputGender.current?.value}`,
     );
+    dispatch(addUncontrolledFormData({  name: inputName.current?.value ||"",
+        age: inputAge.current?.value ||"",
+        email: inputEmail.current?.value ||"",
+        password: inputPassword.current?.value ||"",
+        gender: inputGender.current?.value ||"",
+        terms: !!inputTerm,
+        picture: 'string',
+        country: inputCountry.current?.value || ''}))
   }
 
   return (
@@ -61,7 +75,7 @@ function UncontrolledForm() {
           Terms :
           <input type="checkbox" ref={inputTerm} />
         </label>
-        <CountryAutocomplete />
+        <CountryAutocomplete func={inputCountry}/>
         <button type="submit">Submit</button>
       </form>
     </div>

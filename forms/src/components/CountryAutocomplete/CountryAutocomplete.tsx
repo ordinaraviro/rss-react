@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, RefObject } from "react";
 
 const countries = [
   "United States",
@@ -13,11 +13,11 @@ const countries = [
   "Japan",
 ];
 
-function CountryAutocomplete() {
+function CountryAutocomplete({func}:{func:RefObject<HTMLInputElement>}) {
   const [inputValue, setInputValue] = useState("");
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputCountry = func;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -44,7 +44,7 @@ function CountryAutocomplete() {
     <div>
       <input
         type="text"
-        ref={inputRef}
+        ref={inputCountry}
         value={inputValue}
         onChange={handleInputChange}
         placeholder="Select a country"

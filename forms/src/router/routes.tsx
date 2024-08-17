@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Main from "../pages/Main";
-import ControlledFormPage from "../pages/ControlledFormPage";
-import UncontrolledFormPage from "../pages/UncontrolledFormPage";
+import Main from "../pages/Main/Main";
+import ControlledFormPage from "../pages/ControlledFormPage/ControlledFormPage";
+import UncontrolledFormPage from "../pages/UncontrolledFormPage/UncontrolledFormPage";
 
 export const routes = [
   {
