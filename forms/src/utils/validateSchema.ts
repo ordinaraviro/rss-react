@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-      "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
+      "Must Contain minimum 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character",
     )
     .required("Password is required"),
   repeatPassword: Yup.string()
@@ -30,6 +30,17 @@ const schema = Yup.object().shape({
     .required("You must accept the terms"),
   picture: Yup.mixed<FileList>()
     .required()
+    .test(
+      "fileRequired",
+      "Please, choose the image file (less than 2MB, JPEG or PNG)",
+      (value) => {
+        if (value && value[0]) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    )
     .test("fileSize", "File too large, it should be less than 2MB", (value) => {
       if (value && value[0]) {
         return value[0].size <= FILE_SIZE_LIMIT;

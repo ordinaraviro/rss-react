@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import "./ControlledForm.scss";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import schema from "../../utils/validateSchema";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addControlledFormData } from "../../redux/formSlice";
 import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
-import { useState } from "react";
+import schema from "../../utils/validateSchema";
+import "./ControlledForm.scss";
 
 interface IFormInput {
   name: string;
@@ -25,55 +25,37 @@ export const ControlledForm: React.FC = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm<IFormInput>({ resolver: yupResolver(schema) });
+    formState: { errors, isValid },
+  } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: "onChange" });
 
   const [country, setCountry] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    const reader = new FileReader();
-    const file = data.picture[0];
+  const handleFileUpload = (file: File | null): Promise<string | null> => {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        resolve(null);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
-    reader.onloadend = async () => {
-      const base64String = reader.result as string;
-
-      dispatch(
-        addControlledFormData({
-          name: data.name || "",
-          age: data.age.toString() || "",
-          email: data.email || "",
-          password: data.password || "",
-          repeatPassword: data.repeatPassword || "",
-          gender: data.gender || "",
-          terms: data.terms,
-          picture: base64String || "",
-          country: country || "",
-        }),
-      );
-      navigate("/?new=control");
+  const onSubmit = async (data: IFormInput) => {
+    const base64String = await handleFileUpload(data.picture[0]);
+    const formData = {
+      ...data,
+      age: data.age.toString(),
+      picture: base64String || "",
+      country: country || "",
     };
 
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      dispatch(
-        addControlledFormData({
-          name: data.name || "",
-          age: data.age.toString() || "",
-          email: data.email || "",
-          password: data.password || "",
-          repeatPassword: data.repeatPassword || "",
-          gender: data.gender || "",
-          terms: data.terms,
-          picture: "",
-          country: country || "",
-        }),
-      );
-      navigate("/?new=control");
-    }
+    dispatch(addControlledFormData(formData));
+    navigate("/?new=control");
   };
 
   return (
@@ -91,11 +73,11 @@ export const ControlledForm: React.FC = () => {
       {errors.email && <p>{errors.email.message}</p>}
 
       <label>Password</label>
-      <input {...register("password")} />
+      <input type="password" {...register("password")} />
       {errors.password && <p>{errors.password.message}</p>}
 
       <label>Repeat password</label>
-      <input {...register("repeatPassword")} />
+      <input type="password" {...register("repeatPassword")} />
       {errors.repeatPassword && <p>{errors.repeatPassword.message}</p>}
 
       <label>Gender</label>
@@ -118,12 +100,12 @@ export const ControlledForm: React.FC = () => {
         value={country}
         onChange={(value) => {
           setCountry(value);
-          setValue("country", value);
+          setValue("country", value, { shouldValidate: true });
         }}
       />
       {errors.country && <p>{errors.country.message}</p>}
 
-      <input type="submit" value={"Submit"} />
+      <input type="submit" value={"Submit"} disabled={!isValid} />
     </form>
   );
 };

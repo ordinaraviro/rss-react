@@ -1,7 +1,7 @@
 import Main from "../pages/Main/Main";
 import ControlledFormPage from "../pages/ControlledFormPage/ControlledFormPage";
 import UncontrolledFormPage from "../pages/UncontrolledFormPage/UncontrolledFormPage";
-import {NavBar} from "../components/NavBar/NavBar";
+import { NavBar } from "../components/NavBar/NavBar";
 
 export const routes = [
   {

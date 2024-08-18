@@ -23,74 +23,68 @@ export const UncontrolledForm: React.FC = () => {
   const navigate = useNavigate();
 
   const formatErrors = (error: ValidationError) => {
-    return error.inner.reduce((acc, err) => {
-      if (err.path) {
-        acc[err.path] = err.message;
-      }
-      return acc;
-    }, {} as Record<string, string>);
+    return error.inner.reduce(
+      (acc, err) => {
+        if (err.path) {
+          acc[err.path] = err.message;
+        }
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
   };
 
-  const handleSubmit = useCallback(async (event: FormEvent) => {
-    event.preventDefault();
-  
-    const files = inputImg.current?.files;
-    const file = inputImg.current?.files?.[0];
-    const formData = {
-      name: inputName.current?.value || "",
-      age: inputAge.current?.value || "",
-      email: inputEmail.current?.value || "",
-      password: inputPassword.current?.value || "",
-      repeatPassword: inputRepeatPassword.current?.value || "",
-      gender: inputGender.current?.value || "",
-      terms: !!inputTerm.current?.checked,
-      picture: files || "",
-      country: inputCountry.current?.value || "",
-    };
-  
-    try {
-      await schema.validate(formData, { abortEarly: false });
-      setErrors({});
-      console.log("Form is valid with raw file:", formData);
-  
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64String = reader.result as string;
-          const updatedFormData = { ...formData, picture: base64String };
-  
+  const handleSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+
+      const files = inputImg.current?.files;
+      const file = inputImg.current?.files?.[0];
+      const formData = {
+        name: inputName.current?.value || "",
+        age: inputAge.current?.value || "",
+        email: inputEmail.current?.value || "",
+        password: inputPassword.current?.value || "",
+        repeatPassword: inputRepeatPassword.current?.value || "",
+        gender: inputGender.current?.value || "",
+        terms: !!inputTerm.current?.checked,
+        picture: files || "",
+        country: inputCountry.current?.value || "",
+      };
+
+      try {
+        await schema.validate(formData, { abortEarly: false });
+        setErrors({});
+        console.log("Form is valid with raw file:", formData);
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            const updatedFormData = { ...formData, picture: base64String };
+
+            dispatch(addUncontrolledFormData(updatedFormData));
+            navigate("/?new=uncontrol");
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const updatedFormData = { ...formData, picture: "" };
           dispatch(addUncontrolledFormData(updatedFormData));
           navigate("/?new=uncontrol");
-        };
-        reader.readAsDataURL(file);
-      } else {
-        const updatedFormData = { ...formData, picture: '' };
-        dispatch(addUncontrolledFormData(updatedFormData));
-        navigate("/?new=uncontrol");
+        }
+      } catch (error: unknown) {
+        if (error instanceof ValidationError) {
+          setErrors(formatErrors(error));
+        } else {
+          console.error("Unexpected error:", error);
+        }
       }
-    } catch (error: unknown) {
-      if (error instanceof ValidationError) {
-        setErrors(formatErrors(error));
-      } else {
-        console.error("Unexpected error:", error);
-      }
-    }
-  }, [dispatch, navigate]);
-  
-  const autoCompleteForm = () => {
-    if (inputName.current) inputName.current.value = "Ivan";
-    if (inputAge.current) inputAge.current.value = "22";
-    if (inputEmail.current) inputEmail.current.value = "mail@mail.com";
-    if (inputPassword.current) inputPassword.current.value = "Qwerty1!";
-    if (inputRepeatPassword.current) inputRepeatPassword.current.value = "Qwerty1!";
-    if (inputGender.current) inputGender.current.value = "male";
-    if (inputCountry.current) inputCountry.current.value = "Us";
-  };
+    },
+    [dispatch, navigate],
+  );
 
   return (
     <div>
-      <button
-        onClick={autoCompleteForm}>auto complete form</button>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Name :

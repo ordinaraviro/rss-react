@@ -27,7 +27,6 @@ export const FormDataTile: React.FC<FormDataTileProps> = ({
           <div>Password: {data.password}</div>
           <div>Gender: {data.gender}</div>
           <div>Terms: {data.terms ? "accepted" : "not accepted"}</div>
-
           <div>Country: {data.country}</div>
         </div>
       </div>
