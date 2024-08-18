@@ -103,7 +103,7 @@ export const ControlledForm: React.FC = () => {
       </select>
       {errors.gender && <p>{errors.gender.message}</p>}
 
-      <label>Terms</label>
+      <label>accept Terms and Conditions agreement</label>
       <input type="checkbox" {...register("terms")} />
       {errors.terms && <p>{errors.terms.message}</p>}
 
@@ -115,7 +115,7 @@ export const ControlledForm: React.FC = () => {
       <input {...register("country")} />
       {errors.country && <p>{errors.country.message}</p>}
 
-      <input type="submit" />
+      <input type="submit" value={'Submit'} />
     </form>
   );
 };

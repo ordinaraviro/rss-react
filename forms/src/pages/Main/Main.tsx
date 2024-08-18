@@ -15,7 +15,7 @@ const Main = () => {
       <NavBar />
       <div className="data-container">
         <div className="uncontrolled-data">
-          Data form uncontrolled form
+          Data from uncontrolled form
           {data.uncontrolledFormData
             .slice()
             .reverse()
@@ -30,7 +30,7 @@ const Main = () => {
             })}
         </div>
         <div className="uncontrolled-data">
-          Data form controlled form
+          Data from controlled form
           {data.controlledFormData
             .slice()
             .reverse()

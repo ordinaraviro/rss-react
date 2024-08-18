@@ -45,9 +45,8 @@ function UncontrolledForm() {
 
       try {
         await schema.validate(formData, { abortEarly: false });
-        setErrors({}); // Clear errors if validation passes
-        // Proceed with form submission logic
-        console.log("Form is valid:", formData);
+        setErrors({});
+        console.log("Form is valid:", formData, inputImg.current?.files);
         dispatch(addUncontrolledFormData(formData));
         navigate("/?new=uncontrol");
       } catch (error: unknown) {
@@ -66,21 +65,6 @@ function UncontrolledForm() {
           console.error("Unexpected error:", error);
         }
       }
-
-      // dispatch(
-      //   addUncontrolledFormData({
-      //     name: inputName.current?.value || "",
-      //     age: inputAge.current?.value || "",
-      //     email: inputEmail.current?.value || "",
-      //     password: inputPassword.current?.value || "",
-      //     repeatPassword: inputRepeatPassword.current?.value || "",
-      //     gender: inputGender.current?.value || "",
-      //     terms: !!inputTerm.current?.checked,
-      //     picture: base64String || "",
-      //     country: inputCountry.current?.value || "",
-      //   }),
-      // );
-      // navigate("/");
     };
 
     if (file) {
@@ -131,8 +115,8 @@ function UncontrolledForm() {
           inputName.current!.value = "Ivan";
           inputAge.current!.value = "22";
           inputEmail.current!.value = "mail@mail.com";
-          inputPassword.current!.value = "123456";
-          inputRepeatPassword.current!.value = "123456";
+          inputPassword.current!.value = "Qwerty1!";
+          inputRepeatPassword.current!.value = "Qwerty1!";
           inputGender.current!.value = "male";
           inputCountry.current!.value = "Us";
         }}
@@ -183,10 +167,17 @@ function UncontrolledForm() {
             value="female"
           />{" "}
           Female
+          <input
+            type="radio"
+            ref={inputGender}
+            name="gender"
+            value="other"
+          />{" "}
+          Other
           {errors.gender && <div className="error">{errors.gender}</div>}
         </label>
         <label>
-          Terms :
+        accept Terms and Conditions agreement :
           <input type="checkbox" ref={inputTerm} />
           {errors.terms && <div className="error">{errors.terms}</div>}
         </label>
