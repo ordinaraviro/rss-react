@@ -1,13 +1,13 @@
-import { FormEvent, useRef, useState } from "react";
-import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
-import "./UncontrolledForm.scss";
+import { FormEvent, useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUncontrolledFormData } from "../../redux/formSlice";
 import { useNavigate } from "react-router-dom";
-import schema from "../../utils/validateSchema";
 import { ValidationError } from "yup";
+import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
+import { addUncontrolledFormData } from "../../redux/formSlice";
+import schema from "../../utils/validateSchema";
+import "./UncontrolledForm.scss";
 
-function UncontrolledForm() {
+export const UncontrolledForm: React.FC = () => {
   const inputName = useRef<HTMLInputElement>(null);
   const inputAge = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
@@ -22,119 +22,75 @@ function UncontrolledForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const inputData = {
-  //   name: inputName.current?.value || "",
-  //   age: inputAge.current?.value || "",
-  //   email: inputEmail.current?.value || "",
-  //   password: inputPassword.current?.value || "",
-  //   repeatPassword: inputRepeatPassword.current?.value || "",
-  //   gender: inputGender.current?.value || "",
-  //   terms: !!inputTerm.current?.checked,
-  //   picture: inputImg.current?.files?.[0] || "",
-  //   country: inputCountry.current?.value || "",
-  // }
-
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    const reader = new FileReader();
-    const file = inputImg.current?.files?.[0];
-
-    reader.onloadend = async () => {
-      const base64String = reader.result as string;
-
-      const formData = {
-        name: inputName.current?.value || "",
-        age: inputAge.current?.value || "",
-        email: inputEmail.current?.value || "",
-        password: inputPassword.current?.value || "",
-        repeatPassword: inputRepeatPassword.current?.value || "",
-        gender: inputGender.current?.value || "",
-        terms: !!inputTerm.current?.checked,
-        picture: base64String || "",
-        country: inputCountry.current?.value || "",
-      };
-
-      try {
-        await schema.validate(formData, { abortEarly: false });
-        setErrors({});
-        console.log("Form is valid:", formData, inputImg.current?.files);
-        dispatch(addUncontrolledFormData(formData));
-        navigate("/?new=uncontrol");
-      } catch (error: unknown) {
-        if (error instanceof ValidationError) {
-          const formattedErrors = error.inner.reduce(
-            (acc, err) => {
-              if (err.path) {
-                acc[err.path] = err.message;
-              }
-              return acc;
-            },
-            {} as Record<string, string>,
-          );
-          setErrors(formattedErrors);
-        } else {
-          console.error("Unexpected error:", error);
-        }
+  const formatErrors = (error: ValidationError) => {
+    return error.inner.reduce((acc, err) => {
+      if (err.path) {
+        acc[err.path] = err.message;
       }
+      return acc;
+    }, {} as Record<string, string>);
+  };
+
+  const handleSubmit = useCallback(async (event: FormEvent) => {
+    event.preventDefault();
+  
+    const files = inputImg.current?.files;
+    const file = inputImg.current?.files?.[0];
+    const formData = {
+      name: inputName.current?.value || "",
+      age: inputAge.current?.value || "",
+      email: inputEmail.current?.value || "",
+      password: inputPassword.current?.value || "",
+      repeatPassword: inputRepeatPassword.current?.value || "",
+      gender: inputGender.current?.value || "",
+      terms: !!inputTerm.current?.checked,
+      picture: files || "",
+      country: inputCountry.current?.value || "",
     };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      const formData = {
-        name: inputName.current?.value || "",
-        age: inputAge.current?.value || "",
-        email: inputEmail.current?.value || "",
-        password: inputPassword.current?.value || "",
-        repeatPassword: inputRepeatPassword.current?.value || "",
-        gender: inputGender.current?.value || "",
-        terms: !!inputTerm.current?.checked,
-        picture: "",
-        country: inputCountry.current?.value || "",
-      };
-
-      try {
-        await schema.validate(formData, { abortEarly: false });
-        setErrors({}); // Clear errors if validation passes
-        // Proceed with form submission logic
-        console.log("Form is valid:", formData);
-        dispatch(addUncontrolledFormData(formData));
+  
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      setErrors({});
+      console.log("Form is valid with raw file:", formData);
+  
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          const updatedFormData = { ...formData, picture: base64String };
+  
+          dispatch(addUncontrolledFormData(updatedFormData));
+          navigate("/?new=uncontrol");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const updatedFormData = { ...formData, picture: '' };
+        dispatch(addUncontrolledFormData(updatedFormData));
         navigate("/?new=uncontrol");
-      } catch (error: unknown) {
-        if (error instanceof ValidationError) {
-          const formattedErrors = error.inner.reduce(
-            (acc, err) => {
-              if (err.path) {
-                acc[err.path] = err.message;
-              }
-              return acc;
-            },
-            {} as Record<string, string>,
-          );
-          setErrors(formattedErrors);
-        } else {
-          console.error("Unexpected error:", error);
-        }
+      }
+    } catch (error: unknown) {
+      if (error instanceof ValidationError) {
+        setErrors(formatErrors(error));
+      } else {
+        console.error("Unexpected error:", error);
       }
     }
-  }
+  }, [dispatch, navigate]);
+  
+  const autoCompleteForm = () => {
+    if (inputName.current) inputName.current.value = "Ivan";
+    if (inputAge.current) inputAge.current.value = "22";
+    if (inputEmail.current) inputEmail.current.value = "mail@mail.com";
+    if (inputPassword.current) inputPassword.current.value = "Qwerty1!";
+    if (inputRepeatPassword.current) inputRepeatPassword.current.value = "Qwerty1!";
+    if (inputGender.current) inputGender.current.value = "male";
+    if (inputCountry.current) inputCountry.current.value = "Us";
+  };
 
   return (
     <div>
       <button
-        onClick={() => {
-          inputName.current!.value = "Ivan";
-          inputAge.current!.value = "22";
-          inputEmail.current!.value = "mail@mail.com";
-          inputPassword.current!.value = "Qwerty1!";
-          inputRepeatPassword.current!.value = "Qwerty1!";
-          inputGender.current!.value = "male";
-          inputCountry.current!.value = "Us";
-        }}
-      >
-        auto complete form
-      </button>
+        onClick={autoCompleteForm}>auto complete form</button>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Name :
@@ -196,7 +152,7 @@ function UncontrolledForm() {
         <label>
           File :
           <input type="file" ref={inputImg} placeholder="Choose image" />
-          {errors.img && <div className="error">{errors.img}</div>}
+          {errors.picture && <div className="error">{errors.picture}</div>}
         </label>
         <CountryAutocomplete func={inputCountry} />
         {errors.country && <div className="error">{errors.country}</div>}
@@ -204,6 +160,4 @@ function UncontrolledForm() {
       </form>
     </div>
   );
-}
-
-export default UncontrolledForm;
+};

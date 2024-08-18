@@ -75,5 +75,5 @@ const CountryAutocomplete = forwardRef<
   );
 });
 
-CountryAutocomplete.displayName = 'CountryAutocomplete';
+CountryAutocomplete.displayName = "CountryAutocomplete";
 export default CountryAutocomplete;

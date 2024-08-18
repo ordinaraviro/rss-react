@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import NavBar from "../../components/NavBar/NavBar";
+import { NavBar } from "../../components/NavBar/NavBar";
 import { RootState } from "../../redux/store";
-import FormDataTile from "../../components/FormDataTile/FormDataTile";
+import { FormDataTile } from "../../components/FormDataTile/FormDataTile";
 import "./Main.scss";
 import { useSearchParams } from "react-router-dom";
 

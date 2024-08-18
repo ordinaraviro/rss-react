@@ -1,13 +1,15 @@
 import { FormData } from "../../redux/formSlice";
 import "./FormDataTile.scss";
 
-function FormDataTile({
-  data,
-  highlightFlag,
-}: {
+interface FormDataTileProps {
   data: FormData;
   highlightFlag?: boolean;
-}) {
+}
+
+export const FormDataTile: React.FC<FormDataTileProps> = ({
+  data,
+  highlightFlag,
+}) => {
   return (
     <div
       className={highlightFlag ? "form-data-tile highlight" : "form-data-tile"}
@@ -31,6 +33,4 @@ function FormDataTile({
       </div>
     </div>
   );
-}
-
-export default FormDataTile;
+};

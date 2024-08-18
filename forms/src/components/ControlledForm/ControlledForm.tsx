@@ -59,7 +59,6 @@ export const ControlledForm: React.FC = () => {
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      // Handle case where no file is selected
       dispatch(
         addControlledFormData({
           name: data.name || "",

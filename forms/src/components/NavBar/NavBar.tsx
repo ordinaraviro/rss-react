@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 
-const NavBar = () => {
+export const NavBar: React.FC = () => {
   return (
     <nav className="nav-bar">
       <NavLink to="/">Main</NavLink>
@@ -10,5 +10,3 @@ const NavBar = () => {
     </nav>
   );
 };
-
-export default NavBar;
