@@ -1,0 +1,34 @@
+.form-data-tile {
+  border: 1px solid #213547;
+  padding: 5px;
+
+  .form-data-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: center;
+
+    .data-img {
+      max-width: 150px;
+      max-height: 150px;
+    }
+  }
+
+  .data-info {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.highlight {
+  animation: highlightFadeOut 5s ease-in-out forwards;
+}
+
+@keyframes highlightFadeOut {
+  0% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
