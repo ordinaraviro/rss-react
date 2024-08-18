@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import "./ControlledForm.scss";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "../../utils/validateSchema";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addControlledFormData } from "../../redux/formSlice";
 
 interface IFormInput {
   name: string;
@@ -22,8 +25,52 @@ export const ControlledForm: React.FC = () => {
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = (data: IFormInput) => {
     console.log(data);
+    const reader = new FileReader();
+    const file = data.picture[0];
+
+    reader.onloadend = async () => {
+      const base64String = reader.result as string;
+
+      dispatch(
+        addControlledFormData({
+          name: data.name || "",
+          age: data.age.toString() || "",
+          email: data.email || "",
+          password: data.password || "",
+          repeatPassword: data.repeatPassword || "",
+          gender: data.gender || "",
+          terms: data.terms,
+          picture: base64String || "",
+          country: data.country || "",
+        }),
+      );
+      navigate("/");
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      // Handle case where no file is selected
+      dispatch(
+        addControlledFormData({
+          name: data.name || "",
+          age: data.age.toString() || "",
+          email: data.email || "",
+          password: data.password || "",
+          repeatPassword: data.repeatPassword || "",
+          gender: data.gender || "",
+          terms: data.terms,
+          picture: "",
+          country: data.country || "",
+        }),
+      );
+      navigate("/");
+    }
   };
 
   return (

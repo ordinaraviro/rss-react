@@ -16,7 +16,12 @@ const Main = () => {
             return <FormDataTile data={e} key={i} />;
           })}
         </div>
-        <div className="controlled-data">Data form controlled form</div>
+        <div className="uncontrolled-data">
+          Data form controlled form
+          {data.controlledFormData.map((e, i) => {
+            return <FormDataTile data={e} key={i} />;
+          })}
+        </div>
       </div>
     </div>
   );
