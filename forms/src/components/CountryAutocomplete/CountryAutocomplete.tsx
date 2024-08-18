@@ -1,27 +1,34 @@
-import { useState, RefObject } from "react";
+import { useState, useEffect, RefObject, forwardRef } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import "./CountryAutocomplete.scss";
 
-const countries = [
-  "United States",
-  "Canada",
-  "Mexico",
-  "United Kingdom",
-  "Germany",
-  "France",
-  "Australia",
-  "India",
-  "China",
-  "Japan",
-];
+interface CountryAutocompleteProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  func?: RefObject<HTMLInputElement>;
+  placeholder?: string;
+}
 
-function CountryAutocomplete({ func }: { func: RefObject<HTMLInputElement> }) {
-  const [inputValue, setInputValue] = useState("");
+const CountryAutocomplete = forwardRef<
+  HTMLInputElement,
+  CountryAutocompleteProps
+>(({ value, onChange, func, placeholder = "Select a country" }, ref) => {
+  const [inputValue, setInputValue] = useState(value || "");
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const inputCountry = func;
+  const countries = useSelector((state: RootState) => state.form.countries);
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setInputValue(value);
+    }
+  }, [value]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
+    if (onChange) onChange(value);
 
     if (value) {
       const filtered = countries.filter((country) =>
@@ -37,37 +44,26 @@ function CountryAutocomplete({ func }: { func: RefObject<HTMLInputElement> }) {
 
   const handleSelectCountry = (country: string) => {
     setInputValue(country);
+    if (onChange) onChange(country);
     setIsDropdownVisible(false);
   };
 
   return (
-    <div>
+    <div className="container">
       <input
         type="text"
-        ref={inputCountry}
+        ref={func || ref}
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Select a country"
+        placeholder={placeholder}
+        className="inputField"
       />
       {isDropdownVisible && (
-        <ul
-          style={{
-            border: "1px solid #ccc",
-            marginTop: "0",
-            padding: "0",
-            listStyle: "none",
-            position: "absolute",
-            zIndex: 1000,
-          }}
-        >
+        <ul className="dropdown">
           {filteredCountries.map((country, index) => (
             <li
               key={index}
-              style={{
-                padding: "8px",
-                cursor: "pointer",
-                backgroundColor: "#fff",
-              }}
+              className="dropdownItem"
               onClick={() => handleSelectCountry(country)}
             >
               {country}
@@ -77,6 +73,7 @@ function CountryAutocomplete({ func }: { func: RefObject<HTMLInputElement> }) {
       )}
     </div>
   );
-}
+});
 
+CountryAutocomplete.displayName = 'CountryAutocomplete';
 export default CountryAutocomplete;

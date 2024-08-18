@@ -5,6 +5,8 @@ import schema from "../../utils/validateSchema";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addControlledFormData } from "../../redux/formSlice";
+import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
+import { useState } from "react";
 
 interface IFormInput {
   name: string;
@@ -22,9 +24,11 @@ export const ControlledForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
+  const [country, setCountry] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,7 +50,7 @@ export const ControlledForm: React.FC = () => {
           gender: data.gender || "",
           terms: data.terms,
           picture: base64String || "",
-          country: data.country || "",
+          country: country || "",
         }),
       );
       navigate("/?new=control");
@@ -66,7 +70,7 @@ export const ControlledForm: React.FC = () => {
           gender: data.gender || "",
           terms: data.terms,
           picture: "",
-          country: data.country || "",
+          country: country || "",
         }),
       );
       navigate("/?new=control");
@@ -111,11 +115,16 @@ export const ControlledForm: React.FC = () => {
       <input type="file" {...register("picture")} />
       {errors.picture && <p>{errors.picture.message}</p>}
 
-      <label>Country</label>
-      <input {...register("country")} />
+      <CountryAutocomplete
+        value={country}
+        onChange={(value) => {
+          setCountry(value);
+          setValue("country", value);
+        }}
+      />
       {errors.country && <p>{errors.country.message}</p>}
 
-      <input type="submit" value={'Submit'} />
+      <input type="submit" value={"Submit"} />
     </form>
   );
 };

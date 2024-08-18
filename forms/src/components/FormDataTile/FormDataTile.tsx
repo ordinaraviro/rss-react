@@ -24,7 +24,7 @@ function FormDataTile({
           <div>E-mail: {data.email}</div>
           <div>Password: {data.password}</div>
           <div>Gender: {data.gender}</div>
-          <div>Terms: {data.terms? 'accepted':"not accepted"}</div>
+          <div>Terms: {data.terms ? "accepted" : "not accepted"}</div>
 
           <div>Country: {data.country}</div>
         </div>

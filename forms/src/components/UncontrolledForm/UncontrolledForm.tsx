@@ -22,6 +22,18 @@ function UncontrolledForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // const inputData = {
+  //   name: inputName.current?.value || "",
+  //   age: inputAge.current?.value || "",
+  //   email: inputEmail.current?.value || "",
+  //   password: inputPassword.current?.value || "",
+  //   repeatPassword: inputRepeatPassword.current?.value || "",
+  //   gender: inputGender.current?.value || "",
+  //   terms: !!inputTerm.current?.checked,
+  //   picture: inputImg.current?.files?.[0] || "",
+  //   country: inputCountry.current?.value || "",
+  // }
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
@@ -151,7 +163,7 @@ function UncontrolledForm() {
             <div className="error">{errors.repeatPassword}</div>
           )}
         </label>
-        <label>
+        <label className="input-gender">
           Gender:
           <input
             type="radio"
@@ -177,7 +189,7 @@ function UncontrolledForm() {
           {errors.gender && <div className="error">{errors.gender}</div>}
         </label>
         <label>
-        accept Terms and Conditions agreement :
+          accept Terms and Conditions agreement :
           <input type="checkbox" ref={inputTerm} />
           {errors.terms && <div className="error">{errors.terms}</div>}
         </label>
