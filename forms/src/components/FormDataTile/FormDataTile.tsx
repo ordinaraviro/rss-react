@@ -1,9 +1,17 @@
 import { FormData } from "../../redux/formSlice";
 import "./FormDataTile.scss";
 
-function FormDataTile({ data }: { data: FormData }) {
+function FormDataTile({
+  data,
+  highlightFlag,
+}: {
+  data: FormData;
+  highlightFlag?: boolean;
+}) {
   return (
-    <div className="form-data-tile">
+    <div
+      className={highlightFlag ? "form-data-tile highlight" : "form-data-tile"}
+    >
       <div className="form-data-container">
         <div>
           {data.picture && (

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import Main from "../pages/Main/Main";
 import ControlledFormPage from "../pages/ControlledFormPage/ControlledFormPage";
 import UncontrolledFormPage from "../pages/UncontrolledFormPage/UncontrolledFormPage";
+import NavBar from "../components/NavBar/NavBar";
 
 export const routes = [
   {
@@ -24,7 +24,8 @@ export const routes = [
     path: "/*",
     element: (
       <>
-        404 not found<Link to={"/"}>main</Link>
+        <NavBar />
+        404 not found
       </>
     ),
   },

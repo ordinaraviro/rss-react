@@ -49,7 +49,7 @@ function UncontrolledForm() {
         // Proceed with form submission logic
         console.log("Form is valid:", formData);
         dispatch(addUncontrolledFormData(formData));
-        navigate("/");
+        navigate("/?new=uncontrol");
       } catch (error: unknown) {
         if (error instanceof ValidationError) {
           const formattedErrors = error.inner.reduce(
@@ -104,7 +104,7 @@ function UncontrolledForm() {
         // Proceed with form submission logic
         console.log("Form is valid:", formData);
         dispatch(addUncontrolledFormData(formData));
-        navigate("/");
+        navigate("/?new=uncontrol");
       } catch (error: unknown) {
         if (error instanceof ValidationError) {
           const formattedErrors = error.inner.reduce(
@@ -126,6 +126,19 @@ function UncontrolledForm() {
 
   return (
     <div>
+      <button
+        onClick={() => {
+          inputName.current!.value = "Ivan";
+          inputAge.current!.value = "22";
+          inputEmail.current!.value = "mail@mail.com";
+          inputPassword.current!.value = "123456";
+          inputRepeatPassword.current!.value = "123456";
+          inputGender.current!.value = "male";
+          inputCountry.current!.value = "Us";
+        }}
+      >
+        auto complete form
+      </button>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Name :

@@ -49,7 +49,7 @@ export const ControlledForm: React.FC = () => {
           country: data.country || "",
         }),
       );
-      navigate("/");
+      navigate("/?new=control");
     };
 
     if (file) {
@@ -69,7 +69,7 @@ export const ControlledForm: React.FC = () => {
           country: data.country || "",
         }),
       );
-      navigate("/");
+      navigate("/?new=control");
     }
   };
 

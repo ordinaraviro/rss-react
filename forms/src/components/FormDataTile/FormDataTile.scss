@@ -19,3 +19,16 @@
     flex-direction: column;
   }
 }
+
+.highlight {
+  animation: highlightFadeOut 5s ease-in-out forwards;
+}
+
+@keyframes highlightFadeOut {
+  0% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
