@@ -1,5 +1,6 @@
 import React from "react";
 import { fetchData, BooksResponse } from "../../api/api";
+import { Loader } from "../Loader/Loader";
 import "./Gallery.scss";
 
 interface Props {
@@ -41,7 +42,7 @@ class Gallery extends React.Component<Props, State> {
     const { data } = this.state;
 
     if (!data) {
-      return <div className="loading">Loading...</div>;
+      return <Loader />;
     }
 
     if (!data.numFound) {
