@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import "./ErrorBoundary.scss";
+import React, { ReactNode } from 'react';
+import './ErrorBoundary.scss';
 
 interface Props {
   children: ReactNode;
@@ -22,7 +22,7 @@ class ErorrBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error("Error caught by ErrorBoundary:", error, info);
+    console.error('Error caught by ErrorBoundary:', error, info);
   }
 
   render() {

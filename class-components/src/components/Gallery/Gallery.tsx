@@ -1,7 +1,7 @@
-import React from "react";
-import { fetchData, BooksResponse } from "../../api/api";
-import { Loader } from "../Loader/Loader";
-import "./Gallery.scss";
+import React from 'react';
+import { fetchData, BooksResponse } from '../../api/api';
+import { Loader } from '../Loader/Loader';
+import './Gallery.scss';
 
 interface Props {
   searchText: string;
@@ -68,7 +68,7 @@ class Gallery extends React.Component<Props, State> {
               <h5 className="card-title">{book.title}</h5>
               <p className="card-text">
                 <small className="text-muted">
-                  {book.author_name ? book.author_name[0] : "Unknown"}
+                  {book.author_name ? book.author_name[0] : 'Unknown'}
                 </small>
               </p>
             </div>
