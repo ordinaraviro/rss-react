@@ -11,6 +11,8 @@ export default defineConfig({
     setupFiles: './src/tests/setup.ts',
     coverage: {
       provider: 'v8',
+      include: ['**/*.tsx'],
+      exclude: ['**/node_modules/**', '**/*.test.tsx','**/*main.tsx', '**/*.spec.tsx', 'src/__tests__/setup.ts'],
     },
   },
 });

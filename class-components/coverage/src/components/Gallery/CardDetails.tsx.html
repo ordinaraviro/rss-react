@@ -1,66 +1,68 @@
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>
-      Code coverage report for src/components/Gallery/CardDetails.tsx
-    </title>
+
+<head>
+    <title>Code coverage report for src/components/Gallery/CardDetails.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
     <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type="text/css">
-      .coverage-summary .sorter {
-        background-image: url(../../../sort-arrow-sprite.png);
-      }
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
     </style>
-  </head>
-
-  <body>
-    <div class="wrapper">
-      <div class="pad1">
-        <h1>
-          <a href="../../../index.html">All files</a> /
-          <a href="index.html">src/components/Gallery</a> CardDetails.tsx
-        </h1>
-        <div class="clearfix">
-          <div class="fl pad1y space-right2">
-            <span class="strong">91.66% </span>
-            <span class="quiet">Statements</span>
-            <span class="fraction">55/60</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">68.75% </span>
-            <span class="quiet">Branches</span>
-            <span class="fraction">11/16</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">100% </span>
-            <span class="quiet">Functions</span>
-            <span class="fraction">2/2</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">91.66% </span>
-            <span class="quiet">Lines</span>
-            <span class="fraction">55/60</span>
-          </div>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/Gallery</a> CardDetails.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">91.66% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>55/60</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">68.75% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>11/16</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">91.66% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>55/60</span>
+            </div>
+        
+            
         </div>
         <p class="quiet">
-          Press <em>n</em> or <em>j</em> to go to the next uncovered block,
-          <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
         <template id="filterTemplate">
-          <div class="quiet">
-            Filter:
-            <input type="search" id="fileSearch" />
-          </div>
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
         </template>
-      </div>
-      <div class="status-line high"></div>
-      <pre><table class="coverage">
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
 <a name='L3'></a><a href='#L3'>3</a>
@@ -205,21 +207,21 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useState } from "react";
-import { fetchData, BooksResponse } from "../../api/api";
-import "./Gallery.scss";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useState } from 'react';
+import { fetchData, BooksResponse } from '../../api/api';
+import './Gallery.scss';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 &nbsp;
 export default function CardDetails() {
   const location = useLocation();
   const [data, setData] = useState&lt;BooksResponse | null&gt;(null);
   const [searchParams] = useSearchParams();
-  const [searchTerm] = useState(localStorage.getItem("searchTerm") || "");
+  const [searchTerm] = useState(localStorage.getItem('searchTerm') || '');
 &nbsp;
   useEffect(() =&gt; {
     setData(null);
     const fetchDataAsync = async () =&gt; {
-      const result = await fetchData(searchTerm, 10, searchParams.get("page"));
+      const result = await fetchData(searchTerm, 10, searchParams.get('page'));
       setData(result);
     };
 &nbsp;
@@ -234,15 +236,15 @@ export default function CardDetails() {
 <span class="cstat-no" title="statement not covered" >    return &lt;div className="loading"&gt;Nothing found&lt;/div&gt;;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-  const book = data.docs[parseInt(searchParams.get("bookId")!)];
-  const newPath = location.pathname.replace("details", "");
+  const book = data.docs[parseInt(searchParams.get('bookId')!)];
+  const newPath = location.pathname.replace('details', '');
 &nbsp;
   return (
     &lt;&gt;
       &lt;div className="card-detail"&gt;
         &lt;Link
           className="card-details-close-btn"
-          to={`${newPath}?page=${searchParams.get("page")}`}
+          to={`${newPath}?page=${searchParams.get('page')}`}
         &gt;
           Close details
         &lt;/Link&gt;
@@ -253,7 +255,7 @@ export default function CardDetails() {
 <span class="branch-0 cbranch-no" title="branch not covered" >          /&gt;</span>
         ) : (
 <span class="cstat-no" title="statement not covered" >          &lt;div className="no-img-title"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {book &amp;&amp; book.title ? book.title : "No title"}</span>
+<span class="cstat-no" title="statement not covered" >            {book &amp;&amp; book.title ? book.title : 'No title'}</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
         )}
 &nbsp;
@@ -261,15 +263,15 @@ export default function CardDetails() {
           &lt;h5 className="card-title"&gt;Title: {book.title}&lt;/h5&gt;
           &lt;p className="card-details-text"&gt;
             &lt;small className="text-muted"&gt;
-              Author: {book.author_name ? book.author_name[0<span class="branch-0 cbranch-no" title="branch not covered" >] : "Unknown"}</span>
+              Author: {book.author_name ? book.author_name[0<span class="branch-0 cbranch-no" title="branch not covered" >] : 'Unknown'}</span>
             &lt;/small&gt;
             &lt;small className="text-muted"&gt;
-              Publish year:{" "}
-              {book.first_publish_year ? book.<span class="branch-0 cbranch-no" title="branch not covered" >first_publish_year : "Unknown"}</span>
+              Publish year:{' '}
+              {book.first_publish_year ? book.<span class="branch-0 cbranch-no" title="branch not covered" >first_publish_year : 'Unknown'}</span>
             &lt;/small&gt;
             &lt;small className="text-muted"&gt;
-              First sentence:{" "}
-              {book.first_sentence ? book.<span class="branch-0 cbranch-no" title="branch not covered" >first_sentence : "No text info"}</span>
+              First sentence:{' '}
+              {book.first_sentence ? book.<span class="branch-0 cbranch-no" title="branch not covered" >first_sentence : 'No text info'}</span>
             &lt;/small&gt;
           &lt;/p&gt;
         &lt;/div&gt;
@@ -279,27 +281,21 @@ export default function CardDetails() {
 }
 &nbsp;</pre></td></tr></table></pre>
 
-      <div class="push"></div>
-      <!-- for sticky footer -->
-    </div>
-    <!-- /wrapper -->
-    <div class="footer quiet pad2 space-top1 center small">
-      Code coverage generated by
-      <a
-        href="https://istanbul.js.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >istanbul</a
-      >
-      at 2025-02-06T07:47:33.409Z
-    </div>
-    <script src="../../../prettify.js"></script>
-    <script>
-      window.onload = function () {
-        prettyPrint();
-      };
-    </script>
-    <script src="../../../sorter.js"></script>
-    <script src="../../../block-navigation.js"></script>
-  </body>
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-02-09T09:26:25.857Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
 </html>
+    
