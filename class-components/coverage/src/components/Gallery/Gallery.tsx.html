@@ -29,9 +29,9 @@
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">90% </span>
+            <span class="strong">81.81% </span>
             <span class="quiet">Branches</span>
-            <span class="fraction">9/10</span>
+            <span class="fraction">9/11</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -229,7 +229,7 @@ export default function Gallery(props: Props) {
   const location = useLocation();
   const [data, setData] = useState&lt;BooksResponse | null&gt;(null);
   const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
+  const page = searchParams.get("page"<span class="branch-0 cbranch-no" title="branch not covered" >) ? searchParams.get("page") : "</span>1";
 &nbsp;
   useEffect(() =&gt; {
     setData(null);
@@ -260,7 +260,7 @@ export default function Gallery(props: Props) {
   function createCard(book: BookInfo, index: number) {
     return (
       &lt;Card
-        link={`/details?page=${searchParams.get("page")}&amp;bookId=${index}`}
+        link={`/details?page=${page}&amp;bookId=${index}`}
         key={index}
         book={book}
       /&gt;
@@ -304,7 +304,7 @@ export default function Gallery(props: Props) {
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at 2024-07-14T20:45:58.519Z
+      at 2025-02-06T07:47:33.409Z
     </div>
     <script src="../../../prettify.js"></script>
     <script>

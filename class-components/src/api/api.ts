@@ -31,12 +31,12 @@ interface BooksResponse {
 async function fetchData(
   searchText: string,
   perPage: number,
-  pageNum: string | null,
+  pageNum: string | null
 ): Promise<BooksResponse> {
-  if (!searchText) searchText = "publish_year%2024";
-  if (!pageNum) pageNum = "1";
+  if (!searchText) searchText = 'publish_year%2024';
+  if (!pageNum) pageNum = '1';
   const response = await fetch(
-    `https://openlibrary.org/search.json?q=${searchText}&page=${pageNum}&limit=${perPage}`,
+    `https://openlibrary.org/search.json?q=${searchText}&page=${pageNum}&limit=${perPage}`
   );
   const data = await response.json();
   return data;

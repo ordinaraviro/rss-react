@@ -1,16 +1,16 @@
-import "./App.css";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import Main from "./Pages/Main/Main";
-import { Routes, Route } from "react-router-dom";
-import Page404 from "./Pages/Page404/Page404";
-import CardDetails from "./components/Gallery/CardDetails";
+import './App.css';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import Main from './Pages/Main/Main';
+import { Routes, Route } from 'react-router-dom';
+import Page404 from './Pages/Page404/Page404';
+import CardDetails from './components/Gallery/CardDetails';
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route
-          path={"/"}
+          path={'/'}
           element={
             <ErrorBoundary>
               <Main />

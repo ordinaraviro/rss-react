@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import "./SearchBar.scss";
-import ErrorButton from "../ErrorBoundary/ErrorButton";
+import React, { useState } from 'react';
+import './SearchBar.scss';
+import ErrorButton from '../ErrorBoundary/ErrorButton';
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
@@ -8,11 +8,11 @@ interface SearchBarProps {
 
 export default function SearchBar(props: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState(
-    localStorage.getItem("searchTerm") || "",
+    localStorage.getItem('searchTerm') || ''
   );
 
   const handleSearch = () => {
-    localStorage.setItem("searchTerm", searchTerm);
+    localStorage.setItem('searchTerm', searchTerm);
     props.onSearch(searchTerm);
   };
 

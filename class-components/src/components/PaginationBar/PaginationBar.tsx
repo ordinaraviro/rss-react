@@ -1,5 +1,5 @@
-import PaginationButton from "./PaginationButton";
-import "./PaginationBar.scss";
+import PaginationButton from './PaginationButton';
+import './PaginationBar.scss';
 
 export default function PaginationBar() {
   return (

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function useSearchQuery(key: string) {
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem(key) || "";
+    return localStorage.getItem(key) || '';
   });
 
   useEffect(() => {

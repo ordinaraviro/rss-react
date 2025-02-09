@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const ErrorButton = ({ errorText }: { errorText: string }) => {
   const [generateError, setGenerateError] = useState(false);
@@ -9,7 +9,7 @@ const ErrorButton = ({ errorText }: { errorText: string }) => {
 
   if (generateError) {
     setGenerateError(false);
-    throw new Error("I crashed!");
+    throw new Error('I crashed!');
   }
 
   return (

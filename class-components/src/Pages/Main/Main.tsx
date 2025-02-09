@@ -1,10 +1,10 @@
-import SearchBar from "../../components/SearchBar/SearchBar";
-import { useState } from "react";
-import Gallery from "../../components/Gallery/Gallery";
+import SearchBar from '../../components/SearchBar/SearchBar';
+import { useState } from 'react';
+import Gallery from '../../components/Gallery/Gallery';
 
 export default function Main() {
   const [searchTerm, setSearchTerm] = useState<string>(
-    localStorage.getItem("searchTerm") || "",
+    localStorage.getItem('searchTerm') || ''
   );
 
   const handleSearch = (searchTerm: string) => {
