@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BookInfo } from "../api/books";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { BookInfo } from '../api/books';
 
 export interface SelectedItemsState {
   items: BookInfo[];
@@ -10,7 +10,7 @@ const initialState: SelectedItemsState = {
 };
 
 const selectedItemsSlice = createSlice({
-  name: "selectedItems",
+  name: 'selectedItems',
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<BookInfo>) => {

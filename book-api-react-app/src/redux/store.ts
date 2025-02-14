@@ -1,7 +1,7 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { booksApi } from "../api/books";
-import selectedItemsReducer from "./selectedItemsSlice";
-import searchTermReducer from "./searchTermSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { booksApi } from '../api/books';
+import selectedItemsReducer from './selectedItemsSlice';
+import searchTermReducer from './searchTermSlice';
 
 const rootReducer = combineReducers({
   [booksApi.reducerPath]: booksApi.reducer,

@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface SearchTermState {
   searchTerm: string;
 }
 
 const initialState: SearchTermState = {
-  searchTerm: localStorage.getItem("searchTerm") || "",
+  searchTerm: localStorage.getItem('searchTerm') || '',
 };
 
 const searchTermSlice = createSlice({
-  name: "searchTerm",
+  name: 'searchTerm',
   initialState,
   reducers: {
     setSearchTerm: (state, action: PayloadAction<string>) => {

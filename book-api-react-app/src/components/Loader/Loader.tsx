@@ -1,4 +1,4 @@
-import "./Loader.scss";
+import './Loader.scss';
 
 export function Loader() {
   return (

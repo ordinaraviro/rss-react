@@ -1,22 +1,22 @@
-import { BookInfo } from "../../api/books";
-import "./Gallery.scss";
-import { Link, Outlet, useLocation, useSearchParams } from "react-router-dom";
-import PaginationBar from "../PaginationBar/PaginationBar";
-import Card from "./Card/Card";
-import { Loader } from "../Loader/Loader";
-import { booksApi } from "../../api/books";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";
+import { BookInfo } from '../../api/books';
+import './Gallery.scss';
+import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import PaginationBar from '../PaginationBar/PaginationBar';
+import Card from './Card/Card';
+import { Loader } from '../Loader/Loader';
+import { booksApi } from '../../api/books';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import SelectedItemsFlyout from './SelectedItemsFlyout/SelectedItemsFlyout';
 
 export default function Gallery() {
   const searchTerm = useSelector(
-    (state: RootState) => state.searchTerm.searchTerm,
+    (state: RootState) => state.searchTerm.searchTerm
   );
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") ? searchParams.get("page") : "1";
+  const page = searchParams.get('page') ? searchParams.get('page') : '1';
   const { data, error, isFetching } = booksApi.useGetBooksBySearchTextQuery({
     searchText: searchTerm,
     page,
@@ -37,7 +37,7 @@ export default function Gallery() {
   const books = data.docs;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (!searchParams.get("bookId")) {
+    if (!searchParams.get('bookId')) {
       e.preventDefault;
     }
   };
@@ -52,7 +52,7 @@ export default function Gallery() {
     );
   }
 
-  const newPath = location.pathname.replace("details", "");
+  const newPath = location.pathname.replace('details', '');
 
   return (
     <>
@@ -61,11 +61,11 @@ export default function Gallery() {
         <div className="gallery">
           <Link
             className={
-              searchParams.get("bookId")
-                ? "gallery-shut-details"
-                : "gallery-shut-details gallery-shut-details_hide"
+              searchParams.get('bookId')
+                ? 'gallery-shut-details'
+                : 'gallery-shut-details gallery-shut-details_hide'
             }
-            to={`${newPath}?page=${searchParams.get("page")}`}
+            to={`${newPath}?page=${searchParams.get('page')}`}
             onClick={handleClick}
           ></Link>
           {books.map(createCard)}

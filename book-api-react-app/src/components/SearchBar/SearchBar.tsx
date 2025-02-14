@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./SearchBar.scss";
-import { useTheme } from "../ThemeContext/useTheme";
-import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../../redux/searchTermSlice";
+import React, { useState } from 'react';
+import './SearchBar.scss';
+import { useTheme } from '../ThemeContext/useTheme';
+import Button from '../Button/Button';
+import { useDispatch } from 'react-redux';
+import { setSearchTerm } from '../../redux/searchTermSlice';
 
 export default function SearchBar() {
   const { toggleTheme } = useTheme();
@@ -11,11 +11,11 @@ export default function SearchBar() {
   const dispatch = useDispatch();
 
   const handleChange = () => {
-    dispatch(setSearchTerm(localStorage.getItem("searchTerm") || ""));
+    dispatch(setSearchTerm(localStorage.getItem('searchTerm') || ''));
   };
 
   const [inputValue, setInputValue] = useState(
-    localStorage.getItem("searchTerm") || "",
+    localStorage.getItem('searchTerm') || ''
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ export default function SearchBar() {
       <input type="text" value={inputValue} onChange={handleInputChange} />
       <Button
         handleClick={() => {
-          localStorage.setItem("searchTerm", inputValue);
+          localStorage.setItem('searchTerm', inputValue);
           handleChange();
         }}
       >

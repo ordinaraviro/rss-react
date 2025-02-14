@@ -1,24 +1,24 @@
 import searchTermReducer, {
   setSearchTerm,
   SearchTermState,
-} from "./searchTermSlice";
+} from './searchTermSlice';
 
-describe("searchTerm slice", () => {
+describe('searchTerm slice', () => {
   const initialState: SearchTermState = {
-    searchTerm: localStorage.getItem("searchTerm") || "",
+    searchTerm: localStorage.getItem('searchTerm') || '',
   };
 
-  it("should handle initial state", () => {
-    expect(searchTermReducer(undefined, { type: "unknown" })).toEqual(
-      initialState,
+  it('should handle initial state', () => {
+    expect(searchTermReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
     );
   });
 
-  it("should handle setSearchTerm", () => {
-    const newSearchTerm = "Redux Testing";
+  it('should handle setSearchTerm', () => {
+    const newSearchTerm = 'Redux Testing';
     const actual = searchTermReducer(
       initialState,
-      setSearchTerm(newSearchTerm),
+      setSearchTerm(newSearchTerm)
     );
     expect(actual.searchTerm).toEqual(newSearchTerm);
   });

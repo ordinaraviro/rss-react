@@ -1,6 +1,6 @@
-import { useTheme } from "../ThemeContext/useTheme";
-import "./Button.scss";
-import { ReactNode } from "react";
+import { useTheme } from '../ThemeContext/useTheme';
+import './Button.scss';
+import { ReactNode } from 'react';
 
 export default function Button({
   handleClick,
@@ -12,7 +12,7 @@ export default function Button({
   const { theme } = useTheme();
   return (
     <button
-      className={theme === "dark" ? "btn btn-dark" : "btn"}
+      className={theme === 'dark' ? 'btn btn-dark' : 'btn'}
       onClick={handleClick}
     >
       {children}
