@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach, beforeAll, afterAll } from "vitest";
 import { http, HttpResponse, delay } from "msw";
 import { setupServer } from "msw/node";
 import { ThemeProvider } from "../ThemeContext/ThemeProvider";
@@ -16,8 +16,13 @@ export const handlers = [
 ];
 
 const server = setupServer(...handlers);
+
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
 afterAll(() => server.close());
 
 describe("Gallery", () => {

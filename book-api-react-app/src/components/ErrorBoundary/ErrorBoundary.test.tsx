@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import ErrorBoundary from "./ErrorBoundary";
 
 const ProblematicComponent = () => {
@@ -9,6 +9,10 @@ const ProblematicComponent = () => {
 
 describe("ErrorBoundary", () => {
   it("catches errors and displays fallback UI", () => {
+
+    // Suppress React error boundary logging to avoid noise in the console
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
     render(
       <ErrorBoundary>
         <ProblematicComponent />
@@ -16,5 +20,8 @@ describe("ErrorBoundary", () => {
     );
 
     expect(screen.getByText("Something broke")).toBeInTheDocument();
+
+    // Restore console.error after test
+    consoleError.mockRestore();
   });
 });

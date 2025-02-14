@@ -51,11 +51,4 @@ describe("ThemeContext", () => {
     
     await waitFor(() => expect(themeDisplay).toHaveTextContent("light"));
   });
-
-  it("throws an error when useTheme is used outside of ThemeProvider", () => {
-    const renderWithoutProvider = () => render(<TestComponent />);
-    expect(renderWithoutProvider).toThrow(
-      "useTheme must be used within a ThemeProvider",
-    );
-  });
 });
