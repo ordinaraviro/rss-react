@@ -1,8 +1,8 @@
-import { ReactNode, useState } from "react";
-import { BooksResponse } from "../../redux/books";
-import { useTheme } from "../ThemeContext/useTheme";
-import SearchBar from "../SearchBar/SearchBar";
-import Gallery from "../Gallery/Gallery";
+import { ReactNode, useState } from 'react';
+import { BooksResponse } from '../../redux/books';
+import { useTheme } from '../ThemeContext/useTheme';
+import SearchBar from '../SearchBar/SearchBar';
+import Gallery from '../Gallery/Gallery';
 
 interface LayoutProps {
   data: BooksResponse;
@@ -15,7 +15,7 @@ export default function Layout({ data, children }: LayoutProps) {
 
   return (
     <div
-      className={theme === "light" ? "main-page" : "main-page main-page-dark"}
+      className={theme === 'light' ? 'main-page' : 'main-page main-page-dark'}
     >
       <SearchBar setLoading={setLoading} />
       <Gallery data={data} loading={loading} setLoading={setLoading}>

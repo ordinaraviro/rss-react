@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./SearchBar.module.scss";
-import { useTheme } from "../ThemeContext/useTheme";
-import Button from "../Button/Button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from 'react';
+import './SearchBar.module.scss';
+import { useTheme } from '../ThemeContext/useTheme';
+import Button from '../Button/Button';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface SearchBarProps {
   setLoading: (arg: boolean) => void;
@@ -11,17 +11,17 @@ interface SearchBarProps {
 export default function SearchBar({ setLoading }: SearchBarProps) {
   const { toggleTheme } = useTheme();
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedSearchTerm = localStorage.getItem("searchTerm") || "";
+    if (typeof window !== 'undefined') {
+      const storedSearchTerm = localStorage.getItem('searchTerm') || '';
       setInputValue(storedSearchTerm);
       if (
-        !searchParams.get("q") ||
-        searchParams.get("q") !== localStorage.getItem("searchTerm")
+        !searchParams.get('q') ||
+        searchParams.get('q') !== localStorage.getItem('searchTerm')
       )
-        router.push(pathname + "?" + updateSearchParams(storedSearchTerm));
+        router.push(pathname + '?' + updateSearchParams(storedSearchTerm));
     }
   }, []);
 
@@ -33,15 +33,15 @@ export default function SearchBar({ setLoading }: SearchBarProps) {
   const searchParams = useSearchParams();
   const updateSearchParams = (newTerm: string) => {
     const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("q", newTerm);
+    newSearchParams.set('q', newTerm);
     return newSearchParams.toString();
   };
 
   const handleSearch = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("searchTerm", inputValue);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('searchTerm', inputValue);
       setLoading(true);
-      router.push(pathname + "?" + updateSearchParams(inputValue));
+      router.push(pathname + '?' + updateSearchParams(inputValue));
     }
   };
 

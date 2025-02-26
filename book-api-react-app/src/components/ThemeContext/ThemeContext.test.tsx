@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
-import { ThemeProvider } from "./ThemeProvider";
-import { useTheme } from "./useTheme";
+import { render, screen, waitFor } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { ThemeProvider } from './ThemeProvider';
+import { useTheme } from './useTheme';
 
 export const TestComponent = () => {
   const { theme, toggleTheme } = useTheme();
@@ -13,43 +13,43 @@ export const TestComponent = () => {
   );
 };
 
-describe("ThemeContext", () => {
-  it("provides the default theme", () => {
+describe('ThemeContext', () => {
+  it('provides the default theme', () => {
     render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>,
+      </ThemeProvider>
     );
 
-    expect(screen.getByTestId("theme")).toHaveTextContent("light");
+    expect(screen.getByTestId('theme')).toHaveTextContent('light');
   });
 
-  it("toggles the theme", async () => {
+  it('toggles the theme', async () => {
     render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>,
+      </ThemeProvider>
     );
 
-    const themeDisplay = screen.getByTestId("theme");
-    const toggleButton = screen.getByRole("button", { name: /toggle theme/i });
+    const themeDisplay = screen.getByTestId('theme');
+    const toggleButton = screen.getByRole('button', { name: /toggle theme/i });
 
     // Initial theme should be light
-    expect(themeDisplay).toHaveTextContent("light");
+    expect(themeDisplay).toHaveTextContent('light');
 
     // Toggle theme to dark
     toggleButton.click();
-    await waitFor(() => expect(themeDisplay).toHaveTextContent("dark"));
+    await waitFor(() => expect(themeDisplay).toHaveTextContent('dark'));
 
     // Toggle theme back to light
     toggleButton.click();
-    await waitFor(() => expect(themeDisplay).toHaveTextContent("light"));
+    await waitFor(() => expect(themeDisplay).toHaveTextContent('light'));
   });
 
-  it("throws an error when useTheme is used outside of ThemeProvider", () => {
+  it('throws an error when useTheme is used outside of ThemeProvider', () => {
     const renderWithoutProvider = () => render(<TestComponent />);
     expect(renderWithoutProvider).toThrow(
-      "useTheme must be used within a ThemeProvider",
+      'useTheme must be used within a ThemeProvider'
     );
   });
 });

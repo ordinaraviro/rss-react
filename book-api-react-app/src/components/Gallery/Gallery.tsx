@@ -1,11 +1,11 @@
-import { BookInfo, BooksResponse } from "../../redux/books";
-import PaginationBar from "../PaginationBar/PaginationBar";
-import Card from "./Card/Card";
-import { Loader } from "../Loader/Loader";
-import SelectedItemsFlyout from "./SelectedItemsFlyout/SelectedItemsFlyout";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { BookInfo, BooksResponse } from '../../redux/books';
+import PaginationBar from '../PaginationBar/PaginationBar';
+import Card from './Card/Card';
+import { Loader } from '../Loader/Loader';
+import SelectedItemsFlyout from './SelectedItemsFlyout/SelectedItemsFlyout';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface GalleryProps {
   data: BooksResponse;
@@ -22,8 +22,8 @@ export default function Gallery({
 }: GalleryProps) {
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const page = searchParams.get("page") ? searchParams.get("page") : "1";
-  const q = searchParams.get("q") ? searchParams.get("q") : "publish_year%2024";
+  const page = searchParams.get('page') ? searchParams.get('page') : '1';
+  const q = searchParams.get('q') ? searchParams.get('q') : 'publish_year%2024';
 
   const [loadingDetails, setLoadingDetails] = useState(false);
 
@@ -50,7 +50,7 @@ export default function Gallery({
   }
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (!searchParams.get("bookId")) {
+    if (!searchParams.get('bookId')) {
       e.preventDefault;
     }
   };
@@ -66,7 +66,7 @@ export default function Gallery({
     );
   }
 
-  const newPath = pathName.replace("details", "");
+  const newPath = pathName.replace('details', '');
 
   return (
     <>
@@ -75,11 +75,11 @@ export default function Gallery({
         <div className="gallery">
           <Link
             className={
-              searchParams.get("bookId")
-                ? "gallery-shut-details"
-                : "gallery-shut-details gallery-shut-details_hide"
+              searchParams.get('bookId')
+                ? 'gallery-shut-details'
+                : 'gallery-shut-details gallery-shut-details_hide'
             }
-            href={`${newPath}?page=${searchParams.get("page")}&q=${searchParams.get("q")}`}
+            href={`${newPath}?page=${searchParams.get('page')}&q=${searchParams.get('q')}`}
             onClick={handleClick}
           ></Link>
           {data.docs.map(createCard)}

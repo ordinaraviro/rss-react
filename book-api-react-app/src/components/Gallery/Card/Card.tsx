@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { BookInfo } from "../../../redux/books";
-import LinkButton from "../../LinkButton/LinkButton";
-import { addItem, removeItem } from "../../../redux/selectedItemsSlice";
-import { RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { BookInfo } from '../../../redux/books';
+import LinkButton from '../../LinkButton/LinkButton';
+import { addItem, removeItem } from '../../../redux/selectedItemsSlice';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   book: BookInfo;
@@ -13,7 +13,7 @@ interface Props {
 export default function Card(props: Props) {
   const dispatch = useDispatch();
   const selectedItems = useSelector(
-    (state: RootState) => state.selectedItems.items,
+    (state: RootState) => state.selectedItems.items
   );
 
   const handleCheckboxChange = (item: BookInfo, isChecked: boolean) => {
@@ -43,7 +43,7 @@ export default function Card(props: Props) {
           <h5 className="card-title">{props.book.title}</h5>
           <p className="card-text">
             <small className="text-muted">
-              {props.book.author_name ? props.book.author_name[0] : "Unknown"}
+              {props.book.author_name ? props.book.author_name[0] : 'Unknown'}
             </small>
           </p>
         </div>
@@ -51,10 +51,10 @@ export default function Card(props: Props) {
           <input
             type="checkbox"
             checked={selectedItems.some(
-              (selectedItem) => selectedItem.key === props.book.key,
+              (selectedItem) => selectedItem.key === props.book.key
             )}
             onChange={(e) => handleCheckboxChange(props.book, e.target.checked)}
-          />{" "}
+          />{' '}
           Add book
         </label>
       </div>

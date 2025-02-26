@@ -1,22 +1,22 @@
-import { render, screen } from "@testing-library/react";
-import Layout from "./Layout";
-import { useTheme } from "../ThemeContext/useTheme";
-import { BooksResponse } from "../../redux/books";
-import { vi } from "vitest";
-import { describe, it, expect } from "vitest";
+import { render, screen } from '@testing-library/react';
+import Layout from './Layout';
+import { useTheme } from '../ThemeContext/useTheme';
+import { BooksResponse } from '../../redux/books';
+import { vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 // Mock the useTheme hook
-vi.mock("../ThemeContext/useTheme", () => ({
+vi.mock('../ThemeContext/useTheme', () => ({
   useTheme: vi.fn(),
 }));
 
 // Mock the child components
-vi.mock("../SearchBar/SearchBar", () => ({
+vi.mock('../SearchBar/SearchBar', () => ({
   __esModule: true,
   default: () => <div>SearchBar</div>,
 }));
 
-vi.mock("../Gallery/Gallery", () => ({
+vi.mock('../Gallery/Gallery', () => ({
   __esModule: true,
   default: ({
     children,
@@ -33,39 +33,39 @@ vi.mock("../Gallery/Gallery", () => ({
   ),
 }));
 
-describe("Layout", () => {
+describe('Layout', () => {
   const mockData: BooksResponse = {
     numFound: 0,
     start: 0,
     numFoundExact: false,
     docs: [],
-    q: "",
+    q: '',
     offset: false,
   };
 
-  it("applies the correct theme classes", () => {
-    (useTheme as jest.Mock).mockReturnValue({ theme: "dark" });
+  it('applies the correct theme classes', () => {
+    (useTheme as jest.Mock).mockReturnValue({ theme: 'dark' });
 
     const { container } = render(
       <Layout data={mockData}>
         <div>Child Component</div>
-      </Layout>,
+      </Layout>
     );
 
-    expect(container.firstChild).toHaveClass("main-page-dark");
+    expect(container.firstChild).toHaveClass('main-page-dark');
   });
 
-  it("passes loading state to SearchBar and Gallery", () => {
-    (useTheme as jest.Mock).mockReturnValue({ theme: "light" });
+  it('passes loading state to SearchBar and Gallery', () => {
+    (useTheme as jest.Mock).mockReturnValue({ theme: 'light' });
 
     render(
       <Layout data={mockData}>
         <div>Child Component</div>
-      </Layout>,
+      </Layout>
     );
 
-    expect(screen.getByText("SearchBar")).toBeInTheDocument();
-    expect(screen.getByText("Gallery")).toBeInTheDocument();
-    expect(screen.getByText("Child Component")).toBeInTheDocument();
+    expect(screen.getByText('SearchBar')).toBeInTheDocument();
+    expect(screen.getByText('Gallery')).toBeInTheDocument();
+    expect(screen.getByText('Child Component')).toBeInTheDocument();
   });
 });

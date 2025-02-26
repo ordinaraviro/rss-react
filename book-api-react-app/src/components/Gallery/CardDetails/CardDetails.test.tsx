@@ -1,11 +1,11 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import CardDetails from "./CardDetails";
-import { usePathname, useSearchParams } from "next/navigation";
-import { describe, it, expect, vi } from "vitest";
-import { mockData } from "../../../tests/mockData";
+import { render, screen, fireEvent } from '@testing-library/react';
+import CardDetails from './CardDetails';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { describe, it, expect, vi } from 'vitest';
+import { mockData } from '../../../tests/mockData';
 
 // Mock next/navigation hooks
-vi.mock("next/navigation", () => ({
+vi.mock('next/navigation', () => ({
   usePathname: vi.fn(),
   useSearchParams: vi.fn(),
 }));
@@ -13,14 +13,14 @@ vi.mock("next/navigation", () => ({
 const mockUsePathname = usePathname as jest.Mock;
 const mockUseSearchParams = useSearchParams as jest.Mock;
 
-describe("CardDetails", () => {
+describe('CardDetails', () => {
   beforeEach(() => {
-    mockUsePathname.mockReturnValue("/books/details");
+    mockUsePathname.mockReturnValue('/books/details');
     mockUseSearchParams.mockReturnValue({
       get: (key: string) => {
-        if (key === "bookId") return "0";
-        if (key === "page") return "1";
-        if (key === "q") return "test";
+        if (key === 'bookId') return '0';
+        if (key === 'page') return '1';
+        if (key === 'q') return 'test';
         return null;
       },
     });
@@ -30,22 +30,22 @@ describe("CardDetails", () => {
     vi.clearAllMocks();
   });
 
-  it("renders book details correctly", () => {
+  it('renders book details correctly', () => {
     render(<CardDetails data={mockData} />);
 
     expect(
-      screen.getByText("Title: The lord of the rings"),
+      screen.getByText('Title: The lord of the rings')
     ).toBeInTheDocument();
   });
 
-  it("hides card details when the close button is clicked", () => {
+  it('hides card details when the close button is clicked', () => {
     render(<CardDetails data={mockData} />);
 
-    const closeButton = screen.getByText("Close details");
+    const closeButton = screen.getByText('Close details');
     fireEvent.click(closeButton);
 
     expect(
-      screen.queryByText("Title: The lord of the rings"),
+      screen.queryByText('Title: The lord of the rings')
     ).not.toBeInTheDocument();
   });
 });

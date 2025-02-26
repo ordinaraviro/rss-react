@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { useTheme } from "../ThemeContext/useTheme";
-import { ReactNode } from "react";
+import Link from 'next/link';
+import { useTheme } from '../ThemeContext/useTheme';
+import { ReactNode } from 'react';
 
 interface LinkButtonProps {
   path: string;
@@ -16,7 +16,7 @@ export default function LinkButton({
   const { theme } = useTheme();
   return (
     <Link
-      className={theme === "dark" ? "link-btn link-btn-dark" : "link-btn"}
+      className={theme === 'dark' ? 'link-btn link-btn-dark' : 'link-btn'}
       href={path}
       onClick={onClick}
     >

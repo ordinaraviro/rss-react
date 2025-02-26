@@ -1,6 +1,6 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import selectedItemsReducer from "./selectedItemsSlice";
-import { createWrapper } from "next-redux-wrapper";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import selectedItemsReducer from './selectedItemsSlice';
+import { createWrapper } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({
   selectedItems: selectedItemsReducer,

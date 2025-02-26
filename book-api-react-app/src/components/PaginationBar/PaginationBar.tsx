@@ -1,5 +1,5 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Button from "../Button/Button";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Button from '../Button/Button';
 
 export default function PaginationBar({
   handleClick,
@@ -12,11 +12,11 @@ export default function PaginationBar({
 
   const updateSearchParams = (direction: string) => {
     const newSearchParams = new URLSearchParams(searchParams);
-    const currentPage = +(searchParams.get("page") || "1");
+    const currentPage = +(searchParams.get('page') || '1');
 
-    const newPage = direction === "Next" ? currentPage + 1 : currentPage - 1;
+    const newPage = direction === 'Next' ? currentPage + 1 : currentPage - 1;
 
-    newSearchParams.set("page", Math.max(newPage, 1).toString());
+    newSearchParams.set('page', Math.max(newPage, 1).toString());
     return newSearchParams.toString();
   };
 
@@ -25,14 +25,14 @@ export default function PaginationBar({
       <Button
         handleClick={() => {
           handleClick();
-          router.push(pathname + "?" + updateSearchParams("Previous"));
+          router.push(pathname + '?' + updateSearchParams('Previous'));
         }}
       >
         &larr; Previous page
       </Button>
       <Button
         handleClick={() => {
-          router.push(pathname + "?" + updateSearchParams("Next"));
+          router.push(pathname + '?' + updateSearchParams('Next'));
           handleClick();
         }}
       >
