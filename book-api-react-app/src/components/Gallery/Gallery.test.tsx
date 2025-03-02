@@ -1,21 +1,39 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Gallery from './Gallery';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { vi } from 'vitest';
 import { mockData } from '../../tests/mockData';
 import { describe, it, expect } from 'vitest';
 import { ThemeProvider } from '../ThemeContext/ThemeProvider';
 import { renderWithProviders } from '../../tests/testReduxStore';
 
-// Mock next/navigation hooks
-vi.mock('next/navigation', () => ({
-  usePathname: vi.fn(),
-  useSearchParams: vi.fn(),
-  useRouter: vi.fn(),
-}));
+vi.mock('next/navigation', () => {
+  return {
+    usePathname: vi.fn(() => '/books'),
+    useSearchParams: vi.fn(() => ({
+      get: vi.fn((key: string) => {
+        if (key === 'bookId') return '0';
+        if (key === 'page') return '1';
+        if (key === 'q') return 'test';
+        return null;
+      }),
+    })),
+    useRouter: () => ({
+      push: vi.fn(),
+      replace: vi.fn(),
+      prefetch: vi.fn(),
+    }),
+  };
+});
 
-const mockUsePathname = usePathname as jest.Mock;
-const mockUseSearchParams = useSearchParams as jest.Mock;
+vi.mock('next/link', () => ({
+  default: ({
+    children,
+    onClick,
+  }: {
+    children: React.ReactNode;
+    onClick?: () => void;
+  }) => <button onClick={onClick}>{children}</button>,
+}));
 
 const mockOneData = {
   numFound: 741,
@@ -38,18 +56,6 @@ const mockOneData = {
 
 describe('Gallery Component', () => {
   const mockSetLoading = vi.fn();
-
-  beforeEach(() => {
-    mockUsePathname.mockReturnValue('/books');
-    mockUseSearchParams.mockReturnValue({
-      get: (key: string) => {
-        if (key === 'page') return '1';
-        if (key === 'q') return 'test';
-        if (key === 'bookId') return null;
-        return null;
-      },
-    });
-  });
 
   afterEach(() => {
     vi.clearAllMocks();

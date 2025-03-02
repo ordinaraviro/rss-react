@@ -1,31 +1,38 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import CardDetails from './CardDetails';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { describe, it, expect, vi } from 'vitest';
 import { mockData } from '../../../tests/mockData';
 
-// Mock next/navigation hooks
-vi.mock('next/navigation', () => ({
-  usePathname: vi.fn(),
-  useSearchParams: vi.fn(),
-}));
-
-const mockUsePathname = usePathname as jest.Mock;
-const mockUseSearchParams = useSearchParams as jest.Mock;
-
-describe('CardDetails', () => {
-  beforeEach(() => {
-    mockUsePathname.mockReturnValue('/books/details');
-    mockUseSearchParams.mockReturnValue({
-      get: (key: string) => {
+vi.mock('next/navigation', () => {
+  return {
+    usePathname: vi.fn(() => '/books/details'),
+    useSearchParams: vi.fn(() => ({
+      get: vi.fn((key: string) => {
         if (key === 'bookId') return '0';
         if (key === 'page') return '1';
         if (key === 'q') return 'test';
         return null;
-      },
-    });
-  });
+      }),
+    })),
+    useRouter: () => ({
+      push: vi.fn(),
+      replace: vi.fn(),
+      prefetch: vi.fn(),
+    }),
+  };
+});
 
+vi.mock('next/link', () => ({
+  default: ({
+    children,
+    onClick,
+  }: {
+    children: React.ReactNode;
+    onClick?: () => void;
+  }) => <button onClick={onClick}>{children}</button>,
+}));
+
+describe('CardDetails', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
