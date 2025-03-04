@@ -1,10 +1,19 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, Store } from '@reduxjs/toolkit';
 import selectedItemsReducer from './selectedItemsSlice';
 import { createWrapper } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({
   selectedItems: selectedItemsReducer,
 });
+
+export function setupStore(
+  preloadedState?: Partial<RootState>
+): Store<RootState> {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+}
 
 export function makeStore() {
   return configureStore({
