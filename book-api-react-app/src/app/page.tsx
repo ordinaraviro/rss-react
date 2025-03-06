@@ -22,5 +22,5 @@ export default async function Page({
   );
 
   const data = await res.json();
-  return <Layout data={data} children={''} />;
+  return <Layout data={data}>{''}</Layout>;
 }
