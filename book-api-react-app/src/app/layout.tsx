@@ -1,7 +1,10 @@
+import '../index.scss';
+
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import type { Metadata } from 'next';
 import StoreProvider from '../redux/storeProvider';
 import { ThemeProvider } from '@/components/ThemeContext/ThemeProvider';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -20,7 +23,10 @@ export default function RootLayout({
       <body>
         <ErrorBoundary>
           <StoreProvider>
-            <ThemeProvider> {children}</ThemeProvider>
+            <ThemeProvider>
+              <Suspense fallback={<p>tets loading component</p>}></Suspense>
+              {children}
+            </ThemeProvider>
           </StoreProvider>
         </ErrorBoundary>
       </body>

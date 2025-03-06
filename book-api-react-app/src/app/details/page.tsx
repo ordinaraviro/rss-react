@@ -1,3 +1,4 @@
+import CardDetails from '@/components/Gallery/CardDetails/CardDetails';
 import Layout from '@/components/Layout/Layout';
 import type { Metadata } from 'next';
 
@@ -22,5 +23,9 @@ export default async function Page({
   );
 
   const data = await res.json();
-  return <Layout data={data} children={''} />;
+  return (
+    <Layout data={data}>
+      <CardDetails data={data} />
+    </Layout>
+  );
 }

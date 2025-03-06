@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { BooksResponse } from '../../../redux/books';
 import { usePathname, useSearchParams } from 'next/navigation';
