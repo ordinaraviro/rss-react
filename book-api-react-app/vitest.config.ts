@@ -12,7 +12,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/pages/*', 'src/next.config.mjs', 'src/**/*.test.{ts,tsx}'],
+      exclude: ['src/app/*', 'src/next.config.mjs', 'src/**/*.test.{ts,tsx}'],
     },
   },
 });

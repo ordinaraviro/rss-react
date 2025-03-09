@@ -40,7 +40,6 @@ export default function Gallery({
 
   useEffect(() => {
     if (data) handleComplete();
-    // if (data) setLoadingDetails(false);
 
     return () => {};
   }, [data]);

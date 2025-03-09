@@ -11,8 +11,6 @@ export default async function Page({
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
   const { page = 'page', q = 'q' } = await searchParams;
-  // const q = searchParams.q || 'publish_year%2024';
-  // const page = searchParams.page || '1';
   const fetchPage = Number(page) ? page : '1';
   const fetchQueary = q || 'publish_year%2024';
 
