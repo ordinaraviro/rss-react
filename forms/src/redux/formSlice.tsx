@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { countries } from "./countriesData";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { countries } from './countriesData';
 
 export interface FormData {
   name: string;
@@ -26,7 +26,7 @@ const initialState: FormState = {
 };
 
 const formSlice = createSlice({
-  name: "form",
+  name: 'form',
   initialState,
   reducers: {
     addUncontrolledFormData: (state, action: PayloadAction<FormData>) => {

@@ -1,11 +1,11 @@
-import { FormEvent, useCallback, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { ValidationError } from "yup";
-import CountryAutocomplete from "../CountryAutocomplete/CountryAutocomplete";
-import { addUncontrolledFormData } from "../../redux/formSlice";
-import schema from "../../utils/validateSchema";
-import "./UncontrolledForm.scss";
+import { FormEvent, useCallback, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { ValidationError } from 'yup';
+import CountryAutocomplete from '../CountryAutocomplete/CountryAutocomplete';
+import { addUncontrolledFormData } from '../../redux/formSlice';
+import schema from '../../utils/validateSchema';
+import './UncontrolledForm.scss';
 
 export const UncontrolledForm: React.FC = () => {
   const inputName = useRef<HTMLInputElement>(null);
@@ -30,7 +30,7 @@ export const UncontrolledForm: React.FC = () => {
         }
         return acc;
       },
-      {} as Record<string, string>,
+      {} as Record<string, string>
     );
   };
 
@@ -41,21 +41,21 @@ export const UncontrolledForm: React.FC = () => {
       const files = inputImg.current?.files;
       const file = inputImg.current?.files?.[0];
       const formData = {
-        name: inputName.current?.value || "",
-        age: inputAge.current?.value || "",
-        email: inputEmail.current?.value || "",
-        password: inputPassword.current?.value || "",
-        repeatPassword: inputRepeatPassword.current?.value || "",
-        gender: inputGender.current?.value || "",
+        name: inputName.current?.value || '',
+        age: inputAge.current?.value || '',
+        email: inputEmail.current?.value || '',
+        password: inputPassword.current?.value || '',
+        repeatPassword: inputRepeatPassword.current?.value || '',
+        gender: inputGender.current?.value || '',
         terms: !!inputTerm.current?.checked,
-        picture: files || "",
-        country: inputCountry.current?.value || "",
+        picture: files || '',
+        country: inputCountry.current?.value || '',
       };
 
       try {
         await schema.validate(formData, { abortEarly: false });
         setErrors({});
-        console.log("Form is valid with raw file:", formData);
+        console.log('Form is valid with raw file:', formData);
 
         if (file) {
           const reader = new FileReader();
@@ -64,23 +64,23 @@ export const UncontrolledForm: React.FC = () => {
             const updatedFormData = { ...formData, picture: base64String };
 
             dispatch(addUncontrolledFormData(updatedFormData));
-            navigate("/?new=uncontrol");
+            navigate('/?new=uncontrol');
           };
           reader.readAsDataURL(file);
         } else {
-          const updatedFormData = { ...formData, picture: "" };
+          const updatedFormData = { ...formData, picture: '' };
           dispatch(addUncontrolledFormData(updatedFormData));
-          navigate("/?new=uncontrol");
+          navigate('/?new=uncontrol');
         }
       } catch (error: unknown) {
         if (error instanceof ValidationError) {
           setErrors(formatErrors(error));
         } else {
-          console.error("Unexpected error:", error);
+          console.error('Unexpected error:', error);
         }
       }
     },
-    [dispatch, navigate],
+    [dispatch, navigate]
   );
 
   return (
@@ -120,21 +120,21 @@ export const UncontrolledForm: React.FC = () => {
             ref={inputGender}
             name="gender"
             value="male"
-          />{" "}
+          />{' '}
           Male
           <input
             type="radio"
             ref={inputGender}
             name="gender"
             value="female"
-          />{" "}
+          />{' '}
           Female
           <input
             type="radio"
             ref={inputGender}
             name="gender"
             value="other"
-          />{" "}
+          />{' '}
           Other
           {errors.gender && <div className="error">{errors.gender}</div>}
         </label>

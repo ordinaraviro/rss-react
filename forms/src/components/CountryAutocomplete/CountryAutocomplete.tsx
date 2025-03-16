@@ -1,7 +1,7 @@
-import { useState, useEffect, RefObject, forwardRef } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import "./CountryAutocomplete.scss";
+import { useState, useEffect, RefObject, forwardRef } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import './CountryAutocomplete.scss';
 
 interface CountryAutocompleteProps {
   value?: string;
@@ -13,8 +13,8 @@ interface CountryAutocompleteProps {
 const CountryAutocomplete = forwardRef<
   HTMLInputElement,
   CountryAutocompleteProps
->(({ value, onChange, func, placeholder = "Select a country" }, ref) => {
-  const [inputValue, setInputValue] = useState(value || "");
+>(({ value, onChange, func, placeholder = 'Select a country' }, ref) => {
+  const [inputValue, setInputValue] = useState(value || '');
   const [filteredCountries, setFilteredCountries] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const countries = useSelector((state: RootState) => state.form.countries);
@@ -32,7 +32,7 @@ const CountryAutocomplete = forwardRef<
 
     if (value) {
       const filtered = countries.filter((country) =>
-        country.toLowerCase().includes(value.toLowerCase()),
+        country.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCountries(filtered);
       setIsDropdownVisible(true);
@@ -75,5 +75,5 @@ const CountryAutocomplete = forwardRef<
   );
 });
 
-CountryAutocomplete.displayName = "CountryAutocomplete";
+CountryAutocomplete.displayName = 'CountryAutocomplete';
 export default CountryAutocomplete;

@@ -1,14 +1,14 @@
-import { useSelector } from "react-redux";
-import { NavBar } from "../../components/NavBar/NavBar";
-import { RootState } from "../../redux/store";
-import { FormDataTile } from "../../components/FormDataTile/FormDataTile";
-import "./Main.scss";
-import { useSearchParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { NavBar } from '../../components/NavBar/NavBar';
+import { RootState } from '../../redux/store';
+import { FormDataTile } from '../../components/FormDataTile/FormDataTile';
+import './Main.scss';
+import { useSearchParams } from 'react-router-dom';
 
 const Main = () => {
   const data = useSelector((state: RootState) => state.form);
   const [searchParams] = useSearchParams();
-  const isHighlight = searchParams.get("new") === "uncontrol";
+  const isHighlight = searchParams.get('new') === 'uncontrol';
 
   return (
     <div>
@@ -40,7 +40,7 @@ const Main = () => {
                   data={e}
                   key={i}
                   highlightFlag={
-                    searchParams.get("new") === "control" && i == 0
+                    searchParams.get('new') === 'control' && i == 0
                       ? true
                       : false
                   }

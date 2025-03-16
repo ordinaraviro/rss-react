@@ -1,5 +1,5 @@
-import { FormData } from "../../redux/formSlice";
-import "./FormDataTile.scss";
+import { FormData } from '../../redux/formSlice';
+import './FormDataTile.scss';
 
 interface FormDataTileProps {
   data: FormData;
@@ -12,7 +12,7 @@ export const FormDataTile: React.FC<FormDataTileProps> = ({
 }) => {
   return (
     <div
-      className={highlightFlag ? "form-data-tile highlight" : "form-data-tile"}
+      className={highlightFlag ? 'form-data-tile highlight' : 'form-data-tile'}
     >
       <div className="form-data-container">
         <div>
@@ -26,7 +26,7 @@ export const FormDataTile: React.FC<FormDataTileProps> = ({
           <div>E-mail: {data.email}</div>
           <div>Password: {data.password}</div>
           <div>Gender: {data.gender}</div>
-          <div>Terms: {data.terms ? "accepted" : "not accepted"}</div>
+          <div>Terms: {data.terms ? 'accepted' : 'not accepted'}</div>
           <div>Country: {data.country}</div>
         </div>
       </div>
