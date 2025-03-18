@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchCountries, Country } from './api';
+import Footer from './components/Footer';
 
 const App = () => {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -88,6 +89,7 @@ const App = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
