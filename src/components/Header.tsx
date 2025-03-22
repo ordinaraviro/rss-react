@@ -1,3 +1,5 @@
+import React from "react";
+
 const Header = () => {
   return (
     <header className="top-0 left-0 w-full p-4 bg-gray-300 text-white flex items-center justify-between">
@@ -10,4 +12,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

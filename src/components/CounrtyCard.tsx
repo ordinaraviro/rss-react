@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Country } from '../api';
+import React from 'react';
 
 interface CountryCardProps {
   country: Country;
@@ -47,4 +48,4 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   );
 };
 
-export default CountryCard;
+export default React.memo(CountryCard);

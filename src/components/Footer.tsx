@@ -1,3 +1,5 @@
+import React from "react";
+
 const Footer = () => {
   return (
     <footer className="bottom-0 left-0 w-full p-4 bg-gray-300 text-white flex items-center justify-between">
@@ -54,4 +56,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
