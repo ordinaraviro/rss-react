@@ -1,54 +1,75 @@
-# React + TypeScript + Vite
+# React. Task #6 React Performance
+## Install instructions:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```bash
+1. git clone https://github.com/ordinaraviro/rss-react.git
+2. git checkout performance
+3. npm i
+4. npm run dev
 ```
+## Performance
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Initial render
+* Committed at: 0.2s
+* Render Duration: 92.8ms
+* Interaction: initial app render
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+<details>
+<summary>Screenshots</summary>
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+![Flame Graph](./public/1initialRenderFlamegraph.png)
+
+![Ranked Chart](./public/2initialRenderRanked.png)
+</details>
+
+### Sort by region
+* Committed at: 3.5s
+* Render Duration: 6.6ms
+* Interaction: change selected region
+
+<details>
+<summary>Screenshots</summary>
+
+![Flame Graph](./public/3regionSortFlamegraph.png)
+
+![Ranked Chart](./public/4regionSortRanked.png)
+</details>
+
+### Sort by population
+* Committed at: 5.5s
+* Render Duration: 4.9ms
+* Interaction: change sort query
+
+<details>
+<summary>Screenshots</summary>
+
+![Flame Graph](./public/5populationSortFlamegraph.png)
+
+![Ranked Chart](./public/6populationSrtRanked.png)
+</details>
+
+### Search by letter 'c'
+* Committed at: 3.9s
+* Render Duration: 3.2ms
+* Interaction: change search query
+
+<details>
+<summary>Screenshots</summary>
+
+![Flame Graph](./public/7sortByCFlamegraph.png)
+
+![Ranked Chart](./public/8sortByCRanked.png)
+</details>
+
+### Repeat search by letter 'c'
+* Committed at: 1.5s
+* Render Duration: 2.7ms
+* Interaction: repeat the same search query
+
+<details>
+<summary>Screenshots</summary>
+
+![Flame Graph](./public/9repeatSortByCFlamegraph.png)
+
+![Ranked Chart](./public/10repeatSortByCRanked.png)
+</details>
