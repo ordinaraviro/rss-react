@@ -33,7 +33,10 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   const isVisited = visitedCountries.includes(country.cca3);
 
   return (
-    <div
+    <a
+      href={country.maps.googleMaps}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`flex flex-row gap-[10px] p-[5px] hover:bg-gray-100 hover:cursor-pointer transition-all duration-100 items-center ${
         isVisited ? 'bg-yellow-100' : ''
       }`}
@@ -44,7 +47,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
       <p>Population: {country.population}</p>
       <p>Region: {country.region}</p>
       {isVisited && <p className="italic ml-4 text-purple-400">Visited</p>}
-    </div>
+    </a>
   );
 };
 

@@ -8,6 +8,9 @@ export interface Country {
   flags: {
     svg: string;
   };
+  maps: {
+    googleMaps: string;
+  };
 }
 
 export const fetchCountries = async (): Promise<Country[]> => {
